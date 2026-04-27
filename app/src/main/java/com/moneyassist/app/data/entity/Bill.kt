@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Bill(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
-    val dueDate: String,        // yyyy-MM-dd
+    val dueDate: String,
     val amount: Double,
     val recurring: String = "Monthly",
     val isPaid: Boolean = false,
