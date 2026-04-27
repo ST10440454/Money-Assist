@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Money Assist</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_bills">Bills</string>
+    <string name="nav_missions">Missions</string>
+    <string name="nav_learn">Learn</string>
+    <string name="coach_cash">Coach Cash</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="total_net_worth">Total Net Worth</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="upcoming_bills">Upcoming Bills</string>
+    <string name="active_missions">Active Missions</string>
+    <string name="see_all">See All</string>
+    <string name="tip_prefix">💡 Tip from Coach Cash</string>
+</resources>

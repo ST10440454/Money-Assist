@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_page">
+
+    <!-- Blue Hero Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_hero_blue"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bills &amp; Subscriptions"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage recurring expenses"
+            android:textColor="#CCFFFFFF"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_networth_card"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_marginTop="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Upcoming"
+                android:textColor="#CCFFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvBillsTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R 0.00"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Coach tip -->
+    <LinearLayout
+        android:id="@+id/layoutTipBills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_tip_banner"
+        android:padding="14dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="💬"
+            android:textSize="16sp"
+            android:background="@drawable/bg_coach_icon"
+            android:layout_marginEnd="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💡 Tip from Coach Cash"
+                android:textColor="@color/green_dark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set up bill reminders 3 days before due dates to avoid late fees."
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnCloseTipBills"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Close"/>
+    </LinearLayout>
+
+    <!-- Empty state -->
+    <TextView
+        android:id="@+id/tvEmptyBills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No bills yet.\nTap + to add your first recurring bill."
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/text_light"
+        android:padding="40dp"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBills"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Add bill"
+        app:backgroundTint="@color/blue_primary"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@color/white"/>
+
+</LinearLayout>

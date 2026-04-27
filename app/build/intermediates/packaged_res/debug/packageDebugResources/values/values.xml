@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="bg_page">#F8FAFC</color>
+    <color name="black">#FF000000</color>
+    <color name="blue_dark">#1D4ED8</color>
+    <color name="blue_light">#EFF6FF</color>
+    <color name="blue_primary">#2563EB</color>
+    <color name="border">#E5E7EB</color>
+    <color name="card_bg">#F1F5F9</color>
+    <color name="expense_red">#991B1B</color>
+    <color name="expense_red_bg">#FEE2E2</color>
+    <color name="green_dark">#15856A</color>
+    <color name="green_light">#E8F8F3</color>
+    <color name="green_mid">#2BB891</color>
+    <color name="green_primary">#1A9E7C</color>
+    <color name="income_green">#166534</color>
+    <color name="income_green_bg">#DCFCE7</color>
+    <color name="orange_light">#FFF7ED</color>
+    <color name="orange_primary">#EA580C</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_dark">#4F46E5</color>
+    <color name="purple_light">#F3EEFF</color>
+    <color name="purple_primary">#7C3AED</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="text_light">#000000</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#000000</color>
+    <color name="urgent_orange">#EA580C</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="avatar_size">36dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_radius">14dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="hero_padding_h">20dp</dimen>
+    <dimen name="hero_padding_v">20dp</dimen>
+    <dimen name="icon_size">42dp</dimen>
+    <dimen name="item_padding_v">13dp</dimen>
+    <dimen name="page_padding">16dp</dimen>
+    <dimen name="section_margin">16dp</dimen>
+    <string name="active_missions">Active Missions</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="app_name">Money Assist</string>
+    <string name="coach_cash">Coach Cash</string>
+    <string name="nav_bills">Bills</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_learn">Learn</string>
+    <string name="nav_missions">Missions</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="see_all">See All</string>
+    <string name="tip_prefix">💡 Tip from Coach Cash</string>
+    <string name="total_net_worth">Total Net Worth</string>
+    <string name="upcoming_bills">Upcoming Bills</string>
+    <style name="Theme.MoneyAssist" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/green_mid</item>
+        <item name="colorSecondaryVariant">@color/green_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor" ns1:targetApi="l">@color/green_dark</item>
+        <item name="android:windowBackground">@color/bg_page</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+    <style name="Theme.MoneyAssist.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Widget.MoneyAssist.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/green_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+    <style name="Widget.MoneyAssist.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/green_primary</item>
+        <item name="android:textColor">@color/green_primary</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+    <style name="Widget.MoneyAssist.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">14dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+</resources>

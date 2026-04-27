@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="page_padding">16dp</dimen>
+    <dimen name="card_radius">14dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="hero_padding_h">20dp</dimen>
+    <dimen name="hero_padding_v">20dp</dimen>
+    <dimen name="section_margin">16dp</dimen>
+    <dimen name="item_padding_v">13dp</dimen>
+    <dimen name="icon_size">42dp</dimen>
+    <dimen name="avatar_size">36dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

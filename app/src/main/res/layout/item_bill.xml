@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <!-- Paid checkbox -->
+        <TextView
+            android:id="@+id/tvBillCheck"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:text="○"
+            android:textSize="18sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginEnd="10dp"/>
+
+        <!-- Icon -->
+        <TextView
+            android:id="@+id/tvBillIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="🏠"
+            android:textSize="20sp"
+            android:background="@drawable/bg_tx_icon"
+            android:layout_marginEnd="12dp"/>
+
+        <!-- Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBillName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rent"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"/>
+
+            <TextView
+                android:id="@+id/tvBillDue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📅 Due 2026-04-01"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/tvBillRecurring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recurring: Monthly"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBillAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R 8 500.00"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Icon -->
+        <TextView
+            android:id="@+id/tvArticleIcon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="📖"
+            android:textSize="22sp"
+            android:background="@drawable/bg_tag_learn"
+            android:layout_marginEnd="12dp"/>
+
+        <!-- Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvArticleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Building an Emergency Fund"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tvArticleCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Savings"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/income_green"
+                    android:background="@drawable/bg_tag_savings"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvArticleTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏱ 3 min"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvArticleExcerpt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="An emergency fund is your financial safety net..."
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/tvArticleRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Read article ›"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/orange_primary"/>
+        </LinearLayout>
+
+        <!-- Save bookmark -->
+        <TextView
+            android:id="@+id/tvArticleSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏷️"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:layout_gravity="top"
+            android:layout_alignParentTop="true"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

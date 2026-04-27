@@ -1,0 +1,222 @@
+[
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_dialog_add_mission.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\dialog_add_mission.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_transaction_list.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_transaction_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_progress_green.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\progress_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_mission_home.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_mission_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_dialog_add_bill.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\dialog_add_bill.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_learn.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_learn.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_hero_orange.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_hero_orange.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_coach_icon.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_coach_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_contrib_box.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_contrib_box.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_hero_blue.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_hero_blue.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_add_expense.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_add_expense.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_card_white.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_card_white.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_progress_red.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\progress_red.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_mission.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_mission.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_article.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_article.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_bill.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_bill.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_tag_savings.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_tag_savings.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_networth_card.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_networth_card.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_img.png.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\img.png"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_tip_banner.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_tip_banner.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_bills.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_bills.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_transaction.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_transaction.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_spinner_background.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\spinner_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.moneyassist.app-debug-77:/layout_dialog_add_mission.xml.flat",
+        "source": "com.moneyassist.app-main-79:/layout/dialog_add_mission.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_progress_track.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_progress_track.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\xml\\file_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_item_budget.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\item_budget.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-anydpi\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_hero_green.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_hero_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\navigation_nav_graph.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\navigation\\nav_graph.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_tx_icon.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_tx_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_missions.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_missions.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_badge_pill.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_badge_pill.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_hero_purple.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_hero_purple.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\color_nav_icon_color.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\color\\nav_icon_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_tag_debt.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_tag_debt.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\mipmap-anydpi\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-debug-77:\\drawable_bg_tag_learn.xml.flat",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\9.0.0\\com.moneyassist.app-main-79:\\drawable\\bg_tag_learn.xml"
+    },
+    {
+        "merged": "com.moneyassist.app-debug-77:/layout_dialog_add_bill.xml.flat",
+        "source": "com.moneyassist.app-main-79:/layout/dialog_add_bill.xml"
+    }
+]
