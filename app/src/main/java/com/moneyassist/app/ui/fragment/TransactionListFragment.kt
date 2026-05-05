@@ -19,6 +19,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
+/**
+ * Fragment that displays a filterable list of all transactions (Income and Expenses).
+ */
 class TransactionListFragment : Fragment() {
 
     private val vm: TransactionViewModel by activityViewModels()
@@ -35,21 +38,25 @@ class TransactionListFragment : Fragment() {
 
         val tvEmpty = view.findViewById<TextView>(R.id.tvEmptyTransactions)
 
+        // Initialize adapter with a long-click listener to delete transactions
         adapter = TransactionAdapter { tx -> vm.deleteTransaction(tx) }
         view.findViewById<RecyclerView>(R.id.rvTransactions).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@TransactionListFragment.adapter
         }
 
+        // Observe transaction data and update the list
         vm.transactions.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
             tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
+        // Update the displayed date range text
         vm.dateRange.observe(viewLifecycleOwner) { (s, e) ->
             view.findViewById<TextView>(R.id.tvDateRange).text = "$s → $e"
         }
 
+        // Set up date range pickers
         view.findViewById<Button>(R.id.btnStartDate).setOnClickListener {
             showDatePicker { date ->
                 val end = vm.dateRange.value?.second ?: LocalDate.now().format(fmt)
@@ -63,11 +70,15 @@ class TransactionListFragment : Fragment() {
             }
         }
 
+        // Navigation to add a new transaction
         view.findViewById<View>(R.id.fabAdd).setOnClickListener {
             findNavController().navigate(R.id.action_transactions_to_addExpense)
         }
     }
 
+    /**
+     * Helper function to show a DatePickerDialog and return the selected date as a String.
+     */
     private fun showDatePicker(onDate: (String) -> Unit) {
         val c = Calendar.getInstance()
         DatePickerDialog(requireContext(), { _, y, m, d ->

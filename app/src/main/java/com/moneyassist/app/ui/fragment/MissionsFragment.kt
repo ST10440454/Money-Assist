@@ -21,6 +21,10 @@ import com.moneyassist.app.ui.adapter.MissionAdapter
 import com.moneyassist.app.ui.viewmodel.MissionsViewModel
 import java.util.*
 
+/**
+ * Fragment for managing financial missions and budget limits.
+ * Uses a tabbed layout to switch between Missions and Budget views.
+ */
 class MissionsFragment : Fragment() {
 
     private val vm: MissionsViewModel by activityViewModels()
@@ -38,9 +42,11 @@ class MissionsFragment : Fragment() {
         val tvEmptyMissions = view.findViewById<TextView>(R.id.tvEmptyMissions)
         val tvEmptyBudget   = view.findViewById<TextView>(R.id.tvEmptyBudget)
 
+        // Initialize adapters
         missionAdapter = MissionAdapter(showContrib = true)
         budgetAdapter  = BudgetAdapter()
 
+        // Setup RecyclerViews
         view.findViewById<RecyclerView>(R.id.rvMissions).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = missionAdapter
@@ -50,6 +56,7 @@ class MissionsFragment : Fragment() {
             adapter = budgetAdapter
         }
 
+        // Observe missions and budget categories from ViewModel
         vm.missions.observe(viewLifecycleOwner) { list ->
             missionAdapter.submitList(list)
             tvEmptyMissions.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
@@ -60,13 +67,14 @@ class MissionsFragment : Fragment() {
             tvEmptyBudget.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
-        // Tab switching
+        // Tab switching logic
         val btnMissions = view.findViewById<MaterialButton>(R.id.btnTabMissions)
         val btnBudget   = view.findViewById<MaterialButton>(R.id.btnTabBudget)
         val rvMissions  = view.findViewById<RecyclerView>(R.id.rvMissions)
         val rvBudget    = view.findViewById<RecyclerView>(R.id.rvBudget)
         val headerRow   = view.findViewById<View>(R.id.rowMissionsHeader)
 
+        /** Switches view to the Missions tab. */
         fun selectMissionsTab() {
             rvMissions.visibility          = View.VISIBLE
             rvBudget.visibility            = View.GONE
@@ -79,6 +87,7 @@ class MissionsFragment : Fragment() {
             btnBudget.setTextColor(requireContext().getColor(R.color.text_secondary))
         }
 
+        /** Switches view to the Budget tab. */
         fun selectBudgetTab() {
             rvMissions.visibility          = View.GONE
             rvBudget.visibility            = View.VISIBLE
@@ -103,6 +112,9 @@ class MissionsFragment : Fragment() {
         }
     }
 
+    /**
+     * Displays a dialog to create a new financial mission.
+     */
     private fun showNewMissionDialog() {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_add_mission, null)
@@ -124,6 +136,7 @@ class MissionsFragment : Fragment() {
                 val deadline = etMissionDeadline.text.toString().trim()
                 val isSavings = dialogView.findViewById<RadioButton>(R.id.rbSavings).isChecked
 
+                // Validate and create the mission
                 when {
                     name.isEmpty()    -> Toast.makeText(requireContext(), "Enter a mission name", Toast.LENGTH_SHORT).show()
                     target == null    -> Toast.makeText(requireContext(), "Enter a valid target amount", Toast.LENGTH_SHORT).show()

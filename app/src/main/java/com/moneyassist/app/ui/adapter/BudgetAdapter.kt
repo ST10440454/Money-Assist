@@ -11,15 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moneyassist.app.R
 import com.moneyassist.app.data.entity.BudgetCategory
 
+/**
+ * Adapter for displaying budget categories and their progress toward spending limits.
+ */
 class BudgetAdapter : ListAdapter<BudgetCategory, BudgetAdapter.VH>(DIFF) {
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<BudgetCategory>() {
+        private val DIFF = object : DiffUtil.ItemCallback<BudgetCategory>() {
             override fun areItemsTheSame(a: BudgetCategory, b: BudgetCategory) = a.id == b.id
             override fun areContentsTheSame(a: BudgetCategory, b: BudgetCategory) = a == b
         }
     }
 
+    /** ViewHolder for budget items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         val tvName: TextView = view.findViewById(R.id.tvBudgetName)
         val tvAmounts: TextView = view.findViewById(R.id.tvBudgetAmounts)
@@ -36,12 +40,18 @@ class BudgetAdapter : ListAdapter<BudgetCategory, BudgetAdapter.VH>(DIFF) {
         val bc = getItem(position)
         holder.tvName.text = "${bc.icon} ${bc.name}"
         holder.tvAmounts.text = "R ${"%.2f".format(bc.spent)} / R ${"%.2f".format(bc.limitAmount)}"
+        
+        // Calculate progress percentage
         val pct = ((bc.spent / bc.limitAmount) * 100).toInt().coerceIn(0, 100)
         holder.progress.progress = pct
+        
+        // Change progress bar color if over budget
         val over = bc.spent > bc.limitAmount
         holder.progress.progressDrawable = holder.itemView.context.getDrawable(
             if (over) R.drawable.progress_red else R.drawable.progress_green
         )
+        
+        // Update remaining/over-budget text
         val remaining = bc.limitAmount - bc.spent
         if (over) {
             holder.tvRemaining.text = "R ${"%.2f".format(-remaining)} over budget"

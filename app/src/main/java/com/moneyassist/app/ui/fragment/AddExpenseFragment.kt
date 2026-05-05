@@ -29,6 +29,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+/**
+ * Fragment for adding a new transaction (income or expense).
+ * Supports picking dates, times, categories, and capturing/selecting a photo of a receipt.
+ */
 class AddExpenseFragment : Fragment() {
 
     private val expenseVm: ExpenseViewModel by activityViewModels()
@@ -51,7 +55,7 @@ class AddExpenseFragment : Fragment() {
 
     private val fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-    // Camera launcher
+    // Launcher for the camera to take a photo of a receipt
     private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -63,7 +67,7 @@ class AddExpenseFragment : Fragment() {
         }
     }
 
-    // Gallery launcher
+    // Launcher for selecting a photo from the gallery
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -82,6 +86,7 @@ class AddExpenseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize UI components
         etDate = view.findViewById(R.id.etDate)
         etStartTime = view.findViewById(R.id.etStartTime)
         etEndTime = view.findViewById(R.id.etEndTime)
@@ -92,14 +97,14 @@ class AddExpenseFragment : Fragment() {
         btnTypeExpense = view.findViewById(R.id.btnTypeExpense)
         btnTypeIncome = view.findViewById(R.id.btnTypeIncome)
 
-        // Default date today
+        // Default the date to today
         etDate.setText(LocalDate.now().format(fmt))
 
-        // Type toggle
+        // Set up type selection (Expense vs. Income)
         btnTypeExpense.setOnClickListener { setType("expense") }
         btnTypeIncome.setOnClickListener { setType("income") }
 
-        // Date picker
+        // Date picker for the transaction date
         etDate.setOnClickListener {
             val c = Calendar.getInstance()
             DatePickerDialog(requireContext(), { _, y, m, d ->
@@ -107,11 +112,11 @@ class AddExpenseFragment : Fragment() {
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // Time pickers
+        // Time pickers for start and end times
         etStartTime.setOnClickListener { showTimePicker(etStartTime) }
         etEndTime.setOnClickListener { showTimePicker(etEndTime) }
 
-        // Category spinner
+        // Populate the category spinner with data from the database
         categoryVm.categories.observe(viewLifecycleOwner) { cats ->
             val names = cats.map { it.name }
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, names)
@@ -119,16 +124,17 @@ class AddExpenseFragment : Fragment() {
             spinnerCategory.adapter = adapter
         }
 
-        // Camera / Gallery
+        // Image attachment options
         view.findViewById<MaterialButton>(R.id.btnCamera).setOnClickListener { launchCamera() }
         view.findViewById<MaterialButton>(R.id.btnGallery).setOnClickListener {
             galleryLauncher.launch("image/*")
         }
 
-        // Save
+        // Save action
         view.findViewById<MaterialButton>(R.id.btnSave).setOnClickListener { saveEntry() }
     }
 
+    /** Updates the UI to reflect whether Expense or Income is selected. */
     private fun setType(type: String) {
         currentType = type
         if (type == "expense") {
@@ -144,6 +150,7 @@ class AddExpenseFragment : Fragment() {
         }
     }
 
+    /** Displays a time picker dialog. */
     private fun showTimePicker(target: EditText) {
         val c = Calendar.getInstance()
         TimePickerDialog(requireContext(), { _, h, m ->
@@ -151,6 +158,7 @@ class AddExpenseFragment : Fragment() {
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show()
     }
 
+    /** Launches the camera intent. */
     private fun launchCamera() {
         val photoFile = createImageFile()
         val uri = FileProvider.getUriForFile(
@@ -165,6 +173,7 @@ class AddExpenseFragment : Fragment() {
         cameraLauncher.launch(intent)
     }
 
+    /** Creates a temporary file for the captured image. */
     private fun createImageFile(): File {
         val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -173,6 +182,7 @@ class AddExpenseFragment : Fragment() {
         }
     }
 
+    /** Validates and saves the transaction to the database. */
     private fun saveEntry() {
         val description = etDescription.text.toString().trim()
         val amountStr = etAmount.text.toString().trim()
@@ -201,7 +211,7 @@ class AddExpenseFragment : Fragment() {
             else -> "📦"
         }
 
-        // Save as new Transaction entity
+        // Save as a Transaction entity for general tracking
         val tx = Transaction(
             name = description,
             date = date,
@@ -212,8 +222,8 @@ class AddExpenseFragment : Fragment() {
         )
         homeVm.addTransaction(tx)
 
-        // Also save as legacy ExpenseEntry for backward-compat
-        val catId = 1 // default; ideally resolve from spinner selection
+        // Also save as an ExpenseEntry for detailed reporting
+        val catId = 1 // Simplified; ideally resolved from selection
         val entry = ExpenseEntry(
             date = date,
             startTime = startTime,

@@ -9,10 +9,14 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for authentication, handling login and registration logic.
+ */
 class LoginViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = AppRepository(app)
 
+    /** Sealed class representing the result of an authentication attempt. */
     sealed class AuthResult {
         data class Success(val user: User) : AuthResult()
         data class Error(val message: String) : AuthResult()
@@ -21,6 +25,9 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
     private val _authResult = MutableSharedFlow<AuthResult>()
     val authResult = _authResult.asSharedFlow()
 
+    /**
+     * Attempts to log in a user with the provided credentials.
+     */
     fun login(username: String, password: String) {
         if (username.isBlank() || password.isBlank()) {
             viewModelScope.launch { _authResult.emit(AuthResult.Error("Username and password required.")) }
@@ -33,6 +40,9 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Registers a new user if the username is not already taken.
+     */
     fun register(username: String, password: String) {
         if (username.isBlank() || password.isBlank()) {
             viewModelScope.launch { _authResult.emit(AuthResult.Error("Username and password required.")) }

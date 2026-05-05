@@ -10,6 +10,9 @@ import com.moneyassist.app.databinding.ActivityLoginBinding
 import com.moneyassist.app.ui.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Activity for user login and registration.
+ */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -22,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
         observeAuthResult()
 
+        // Handle Login button click
         binding.btnLogin.setOnClickListener {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
@@ -32,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        // Handle Register button click
         binding.btnRegister.setOnClickListener {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
@@ -43,6 +48,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Observes the authentication result and navigates to the main activity on success.
+     */
     private fun observeAuthResult() {
         lifecycleScope.launch {
             viewModel.authResult.collect { result ->

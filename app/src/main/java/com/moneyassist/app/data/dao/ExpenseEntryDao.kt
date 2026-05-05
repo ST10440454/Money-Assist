@@ -5,6 +5,9 @@ import androidx.room.*
 import com.moneyassist.app.data.entity.ExpenseEntry
 import com.moneyassist.app.data.model.CategorySpending
 
+/**
+ * Data Access Object for detailed expense entries and spending analysis.
+ */
 @Dao
 interface ExpenseEntryDao {
 
@@ -17,7 +20,7 @@ interface ExpenseEntryDao {
     @Delete
     suspend fun deleteEntry(entry: ExpenseEntry)
 
-    /** All entries within a date range, newest first. */
+    /** Retrieves all entries within a date range, newest first. */
     @Query("""
         SELECT * FROM expense_entries
         WHERE date BETWEEN :startDate AND :endDate
@@ -25,7 +28,7 @@ interface ExpenseEntryDao {
     """)
     fun getEntriesBetween(startDate: String, endDate: String): LiveData<List<ExpenseEntry>>
 
-    /** Total spent per category within a date range. */
+    /** Calculates total spent per category within a specific date range. */
     @Query("""
         SELECT e.categoryId, c.name AS categoryName, SUM(e.amount) AS totalAmount
         FROM expense_entries e
@@ -36,6 +39,7 @@ interface ExpenseEntryDao {
     """)
     fun getCategorySpendingBetween(startDate: String, endDate: String): LiveData<List<CategorySpending>>
 
+    /** Finds a specific expense entry by its ID. */
     @Query("SELECT * FROM expense_entries WHERE id = :id LIMIT 1")
     suspend fun getEntryById(id: Int): ExpenseEntry?
 }

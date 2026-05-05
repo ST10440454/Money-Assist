@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.moneyassist.app.R
 
+/**
+ * Data model for educational articles.
+ */
 data class Article(
     val id: Int,
     val title: String,
@@ -18,18 +21,22 @@ data class Article(
     var saved: Boolean = false
 )
 
+/**
+ * Adapter for displaying educational articles in the Learn section.
+ */
 class ArticleAdapter(
     private val onSave: (Article) -> Unit,
     private val onRead: (Article) -> Unit
 ) : ListAdapter<Article, ArticleAdapter.VH>(DIFF) {
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<Article>() {
+        private val DIFF = object : DiffUtil.ItemCallback<Article>() {
             override fun areItemsTheSame(a: Article, b: Article) = a.id == b.id
             override fun areContentsTheSame(a: Article, b: Article) = a == b
         }
     }
 
+    /** ViewHolder for article items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvArticleTitle)
         val tvCategory: TextView = view.findViewById(R.id.tvArticleCategory)
@@ -51,10 +58,11 @@ class ArticleAdapter(
         holder.tvTime.text = "⏱ ${article.readMinutes} min"
         holder.tvExcerpt.text = article.excerpt
         holder.tvSave.text = if (article.saved) "🔖" else "🏷️"
+        
         holder.tvRead.setOnClickListener { onRead(article) }
         holder.tvSave.setOnClickListener { onSave(article) }
 
-        // Category color
+        // Apply category-specific colors and backgrounds
         val (textColor, bgRes) = when (article.category) {
             "Savings" -> Pair(R.color.income_green, R.drawable.bg_tag_savings)
             "Debt" -> Pair(R.color.expense_red, R.drawable.bg_tag_debt)

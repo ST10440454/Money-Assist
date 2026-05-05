@@ -9,14 +9,21 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+/**
+ * ViewModel for managing bills, including tracking paid/unpaid status and totals.
+ */
 class BillsViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = AppRepository(app)
 
+    // Observable data streams for the UI
     val upcomingBills = repo.getUpcomingBills()
     val paidBills = repo.getPaidBills()
     val totalUpcoming = repo.getTotalUpcoming()
 
+    /**
+     * Marks a bill as paid and records the current date as the payment date.
+     */
     fun markPaid(bill: Bill) {
         val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         viewModelScope.launch {
@@ -24,10 +31,16 @@ class BillsViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /**
+     * Adds a new bill to the database.
+     */
     fun addBill(bill: Bill) {
         viewModelScope.launch { repo.insertBill(bill) }
     }
 
+    /**
+     * Deletes a bill from the database.
+     */
     fun deleteBill(bill: Bill) {
         viewModelScope.launch { repo.deleteBill(bill) }
     }

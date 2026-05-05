@@ -20,6 +20,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+/**
+ * Fragment for managing and tracking upcoming and paid bills.
+ */
 class BillsFragment : Fragment() {
 
     private val vm: BillsViewModel by activityViewModels()
@@ -36,17 +39,20 @@ class BillsFragment : Fragment() {
 
         val tvEmpty = view.findViewById<TextView>(R.id.tvEmptyBills)
 
+        // Initialize the adapter with a callback to mark bills as paid
         upcomingAdapter = BillAdapter { bill -> vm.markPaid(bill) }
         view.findViewById<RecyclerView>(R.id.rvBills).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = upcomingAdapter
         }
 
+        // Observe the list of upcoming bills
         vm.upcomingBills.observe(viewLifecycleOwner) { list ->
             upcomingAdapter.submitList(list)
             tvEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
+        // Observe the total amount due for upcoming bills
         vm.totalUpcoming.observe(viewLifecycleOwner) { total ->
             view.findViewById<TextView>(R.id.tvBillsTotal).text =
                 "R ${"%.2f".format(total ?: 0.0)}"
@@ -61,6 +67,9 @@ class BillsFragment : Fragment() {
         }
     }
 
+    /**
+     * Displays a dialog to input and add a new bill.
+     */
     private fun showAddBillDialog() {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_add_bill, null)
@@ -85,11 +94,13 @@ class BillsFragment : Fragment() {
 
                 val amount = amountStr.toDoubleOrNull()
 
+                // Validate input fields
                 when {
                     name.isEmpty()  -> Toast.makeText(requireContext(), "Please enter a bill name", Toast.LENGTH_SHORT).show()
                     amount == null  -> Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
                     due.isEmpty()   -> Toast.makeText(requireContext(), "Please enter a due date (yyyy-MM-dd)", Toast.LENGTH_SHORT).show()
                     else -> {
+                        // Mark as urgent if the due date is within the next 3 days
                         val isUrgent = try {
                             val dueDate = LocalDate.parse(due, fmt)
                             !dueDate.isAfter(LocalDate.now().plusDays(3))

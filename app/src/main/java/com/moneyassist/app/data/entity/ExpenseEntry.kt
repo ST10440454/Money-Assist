@@ -5,6 +5,9 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+/**
+ * Represents a detailed expense entry, potentially linked to a category and containing time info.
+ */
 @Entity(
     tableName = "expense_entries",
     foreignKeys = [
@@ -19,11 +22,11 @@ import androidx.room.PrimaryKey
 )
 data class ExpenseEntry(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val date: String,           // Stored as "yyyy-MM-dd"
-    val startTime: String,      // Stored as "HH:mm"
-    val endTime: String,        // Stored as "HH:mm"
+    val date: String,           // Format: yyyy-MM-dd
+    val startTime: String,      // Format: HH:mm
+    val endTime: String,        // Format: HH:mm
     val description: String,
     val amount: Double,
     val categoryId: Int,
-    val photoPath: String? = null   // Nullable – photo is optional
+    val photoPath: String? = null   // Optional path to an image of the receipt
 )

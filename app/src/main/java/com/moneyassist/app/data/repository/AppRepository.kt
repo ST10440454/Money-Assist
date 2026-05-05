@@ -4,6 +4,10 @@ import android.content.Context
 import com.moneyassist.app.data.db.AppDatabase
 import com.moneyassist.app.data.entity.*
 
+/**
+ * Repository class that abstracts access to multiple data sources.
+ * It provides a clean API for the rest of the application to interact with data.
+ */
 class AppRepository(context: Context) {
 
     private val db = AppDatabase.getInstance(context)
@@ -15,19 +19,19 @@ class AppRepository(context: Context) {
     private val missionDao = db.missionDao()
     private val budgetDao = db.budgetCategoryDao()
 
-    // ── Users ──────────────────────────────────────────────────
+    // ── User Authentication ──────────────────────────────────────────────────
     suspend fun registerUser(user: User) = userDao.insertUser(user)
     suspend fun login(username: String, password: String) = userDao.login(username, password)
     suspend fun getUserByUsername(username: String) = userDao.getUserByUsername(username)
 
-    // ── Legacy Categories ──────────────────────────────────────
+    // ── Spending Categories ──────────────────────────────────────
     fun getAllCategories() = categoryDao.getAllCategories()
     suspend fun insertCategory(category: Category) = categoryDao.insertCategory(category)
     suspend fun updateCategory(category: Category) = categoryDao.updateCategory(category)
     suspend fun deleteCategory(category: Category) = categoryDao.deleteCategory(category)
     suspend fun getCategoryById(id: Int) = categoryDao.getCategoryById(id)
 
-    // ── Legacy Expense Entries ─────────────────────────────────
+    // ── Detailed Expense Entries ─────────────────────────────────
     fun getEntriesBetween(start: String, end: String) = expenseDao.getEntriesBetween(start, end)
     fun getCategorySpendingBetween(start: String, end: String) = expenseDao.getCategorySpendingBetween(start, end)
     suspend fun insertEntry(entry: ExpenseEntry) = expenseDao.insertEntry(entry)
@@ -35,7 +39,7 @@ class AppRepository(context: Context) {
     suspend fun deleteEntry(entry: ExpenseEntry) = expenseDao.deleteEntry(entry)
     suspend fun getEntryById(id: Int) = expenseDao.getEntryById(id)
 
-    // ── Transactions ───────────────────────────────────────────
+    // ── Transactions (Income & Expenses) ─────────────────────────
     fun getRecentTransactions(limit: Int = 5) = transactionDao.getRecent(limit)
     fun getAllTransactions() = transactionDao.getAll()
     fun getTransactionsBetween(start: String, end: String) = transactionDao.getBetween(start, end)
@@ -44,7 +48,7 @@ class AppRepository(context: Context) {
     suspend fun updateTransaction(tx: Transaction) = transactionDao.update(tx)
     suspend fun deleteTransaction(tx: Transaction) = transactionDao.delete(tx)
 
-    // ── Bills ──────────────────────────────────────────────────
+    // ── Bills & Recurring Payments ───────────────────────────────
     fun getUpcomingBills() = billDao.getUpcoming()
     fun getPaidBills() = billDao.getPaid()
     fun getAllBills() = billDao.getAll()
@@ -53,13 +57,13 @@ class AppRepository(context: Context) {
     suspend fun updateBill(bill: Bill) = billDao.update(bill)
     suspend fun deleteBill(bill: Bill) = billDao.delete(bill)
 
-    // ── Missions ───────────────────────────────────────────────
+    // ── Financial Missions (Goals) ───────────────────────────────
     fun getAllMissions() = missionDao.getAll()
     suspend fun insertMission(mission: Mission) = missionDao.insert(mission)
     suspend fun updateMission(mission: Mission) = missionDao.update(mission)
     suspend fun deleteMission(mission: Mission) = missionDao.delete(mission)
 
-    // ── Budget Categories ──────────────────────────────────────
+    // ── Budget Limits per Category ──────────────────────────────────────
     fun getAllBudgetCategories() = budgetDao.getAll()
     suspend fun insertBudgetCategory(bc: BudgetCategory) = budgetDao.insert(bc)
     suspend fun updateBudgetCategory(bc: BudgetCategory) = budgetDao.update(bc)

@@ -11,6 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Main database class for the application, handling Room setup and migrations.
+ */
 @Database(
     entities = [
         User::class,
@@ -26,6 +29,7 @@ import kotlinx.coroutines.launch
 )
 abstract class AppDatabase : RoomDatabase() {
 
+    // DAOs for accessing database tables
     abstract fun userDao(): UserDao
     abstract fun categoryDao(): CategoryDao
     abstract fun expenseEntryDao(): ExpenseEntryDao
@@ -38,6 +42,9 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
+        /**
+         * Returns a singleton instance of the AppDatabase.
+         */
         fun getInstance(context: Context): AppDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
@@ -49,9 +56,7 @@ abstract class AppDatabase : RoomDatabase() {
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            // Seed only the default category names needed for the expense spinner.
-                            // No transactions, bills, missions or budget amounts are pre-filled —
-                            // the user enters all their own data.
+                            // Populate default data when the database is first created
                             INSTANCE?.let { database ->
                                 CoroutineScope(Dispatchers.IO).launch {
                                     seedDefaultCategories(database)
@@ -62,6 +67,9 @@ abstract class AppDatabase : RoomDatabase() {
                     .build().also { INSTANCE = it }
             }
 
+        /**
+         * Inserts initial category names into the database.
+         */
         private suspend fun seedDefaultCategories(db: AppDatabase) {
             val catDao = db.categoryDao()
             catDao.insertCategory(Category(name = "Food & Groceries", minimumGoal = 0.0, maximumGoal = 0.0))

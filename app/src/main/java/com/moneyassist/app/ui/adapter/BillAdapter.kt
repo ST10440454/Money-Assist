@@ -10,17 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moneyassist.app.R
 import com.moneyassist.app.data.entity.Bill
 
+/**
+ * Adapter for displaying a list of bills in a RecyclerView.
+ */
 class BillAdapter(
     private val onMarkPaid: (Bill) -> Unit
 ) : ListAdapter<Bill, BillAdapter.VH>(DIFF) {
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<Bill>() {
+        private val DIFF = object : DiffUtil.ItemCallback<Bill>() {
             override fun areItemsTheSame(a: Bill, b: Bill) = a.id == b.id
             override fun areContentsTheSame(a: Bill, b: Bill) = a == b
         }
     }
 
+    /** ViewHolder for bill items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         val tvCheck: TextView = view.findViewById(R.id.tvBillCheck)
         val tvIcon: TextView = view.findViewById(R.id.tvBillIcon)
@@ -40,6 +44,8 @@ class BillAdapter(
         val bill = getItem(position)
         holder.tvIcon.text = bill.icon
         holder.tvName.text = bill.name
+        
+        // Indicate urgency with an icon and different text color
         val urgentPrefix = if (bill.isUrgent) "⚠️ " else "📅 "
         holder.tvDue.text = "${urgentPrefix}Due ${bill.dueDate}"
         holder.tvDue.setTextColor(
@@ -47,8 +53,11 @@ class BillAdapter(
                 if (bill.isUrgent) R.color.urgent_orange else R.color.text_secondary
             )
         )
+        
         holder.tvRecurring.text = "Recurring: ${bill.recurring}"
         holder.tvAmount.text = "R ${"%.2f".format(bill.amount)}"
+        
+        // Handle payment status and click event
         holder.tvCheck.text = if (bill.isPaid) "✓" else "○"
         holder.tvCheck.setOnClickListener {
             if (!bill.isPaid) onMarkPaid(bill)

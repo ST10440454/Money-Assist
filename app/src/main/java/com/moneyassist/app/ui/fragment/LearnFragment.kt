@@ -15,9 +15,15 @@ import com.moneyassist.app.R
 import com.moneyassist.app.ui.adapter.Article
 import com.moneyassist.app.ui.adapter.ArticleAdapter
 
+/**
+ * Fragment for the educational section of the app.
+ * Provides a searchable list of financial literacy articles.
+ */
 class LearnFragment : Fragment() {
 
     private lateinit var articleAdapter: ArticleAdapter
+    
+    // Hardcoded list of educational articles
     private var allArticles = listOf(
         Article(1, "Building an Emergency Fund", "Savings", 3, "An emergency fund is your financial safety net. Start with R1,000 and build up to 3-6 months of expenses."),
         Article(2, "How Credit Scores Work", "Credit", 2, "Your credit score is a number between 300-850 that represents your creditworthiness."),
@@ -35,6 +41,7 @@ class LearnFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize adapter with save and read interactions
         articleAdapter = ArticleAdapter(
             onSave = { article ->
                 article.saved = !article.saved
@@ -54,6 +61,7 @@ class LearnFragment : Fragment() {
 
         articleAdapter.submitList(allArticles.toList())
 
+        // Set up real-time search filtering
         view.findViewById<EditText>(R.id.etLearnSearch).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -67,6 +75,9 @@ class LearnFragment : Fragment() {
         }
     }
 
+    /**
+     * Filters articles by title or category based on the search query.
+     */
     private fun filterAndSubmit(query: String) {
         val filtered = if (query.isBlank()) allArticles.toList()
         else allArticles.filter { it.title.contains(query, ignoreCase = true) || it.category.contains(query, ignoreCase = true) }

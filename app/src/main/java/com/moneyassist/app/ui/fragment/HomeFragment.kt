@@ -17,6 +17,10 @@ import com.moneyassist.app.ui.adapter.TransactionAdapter
 import com.moneyassist.app.ui.viewmodel.BillsViewModel
 import com.moneyassist.app.ui.viewmodel.HomeViewModel
 
+/**
+ * Fragment for the Dashboard/Home screen.
+ * Displays a summary of net worth, recent transactions, upcoming bills, and active missions.
+ */
 class HomeFragment : Fragment() {
 
     private val homeVm: HomeViewModel by activityViewModels()
@@ -38,44 +42,45 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize UI components for empty states
         tvEmptyTx       = view.findViewById(R.id.tvEmptyTx)
         tvEmptyBills    = view.findViewById(R.id.tvEmptyBills)
         tvEmptyMissions = view.findViewById(R.id.tvEmptyMissions)
 
-        // Recent transactions
+        // Set up RecyclerView for recent transactions
         txAdapter = TransactionAdapter()
         view.findViewById<RecyclerView>(R.id.rvRecentTx).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = txAdapter
         }
 
-        // Upcoming bills
+        // Set up RecyclerView for upcoming bills
         billAdapter = BillAdapter { bill -> billsVm.markPaid(bill) }
         view.findViewById<RecyclerView>(R.id.rvUpcomingBills).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = billAdapter
         }
 
-        // Active missions (compact)
+        // Set up RecyclerView for active missions (using compact view)
         missionAdapter = MissionAdapter(showContrib = false)
         view.findViewById<RecyclerView>(R.id.rvMissions).apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = missionAdapter
         }
 
-        // Observe
+        // Observe data changes from ViewModel and update adapters/visibility
         homeVm.recentTransactions.observe(viewLifecycleOwner) { list ->
             txAdapter.submitList(list)
             tvEmptyTx.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
         homeVm.upcomingBills.observe(viewLifecycleOwner) { list ->
-            billAdapter.submitList(list.take(3))
+            billAdapter.submitList(list.take(3)) // Show only top 3 on home
             tvEmptyBills.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
         homeVm.missions.observe(viewLifecycleOwner) { list ->
-            missionAdapter.submitList(list.take(2))
+            missionAdapter.submitList(list.take(2)) // Show only top 2 on home
             tvEmptyMissions.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
         }
 
@@ -85,7 +90,7 @@ class HomeFragment : Fragment() {
                 "R ${"%,.2f".format(amount).replace(",", " ")}"
         }
 
-        // Navigation
+        // Setup navigation and click listeners
         view.findViewById<TextView>(R.id.tvSeeAllTx).setOnClickListener {
             findNavController().navigate(R.id.action_home_to_transactions)
         }

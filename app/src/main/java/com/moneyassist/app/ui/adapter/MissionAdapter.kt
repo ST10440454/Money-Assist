@@ -11,17 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moneyassist.app.R
 import com.moneyassist.app.data.entity.Mission
 
+/**
+ * Adapter for displaying financial missions (savings or debt goals).
+ * Can show/hide monthly contribution details depending on where it's used.
+ */
 class MissionAdapter(
     private val showContrib: Boolean = true
 ) : ListAdapter<Mission, MissionAdapter.VH>(DIFF) {
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<Mission>() {
+        private val DIFF = object : DiffUtil.ItemCallback<Mission>() {
             override fun areItemsTheSame(a: Mission, b: Mission) = a.id == b.id
             override fun areContentsTheSame(a: Mission, b: Mission) = a == b
         }
     }
 
+    /** ViewHolder for mission items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         val tvName: TextView = view.findViewById(R.id.tvMissionName)
         val tvDeadline: TextView = view.findViewById(R.id.tvMissionDeadline)
@@ -33,6 +38,7 @@ class MissionAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        // Use different layouts based on whether contribution info should be shown
         val layout = if (showContrib) R.layout.item_mission else R.layout.item_mission_home
         val v = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return VH(v)
@@ -54,16 +60,21 @@ class MissionAdapter(
             if (isSavings) R.drawable.bg_tag_savings else R.drawable.bg_tag_debt
         )
 
+        // Calculate and display progress percentage
         val pct = ((m.current / m.target) * 100).toInt().coerceIn(0, 100)
         holder.tvPct.text = "$pct%"
         holder.progress.progress = pct
         holder.progress.progressDrawable = holder.itemView.context.getDrawable(
             if (isSavings) R.drawable.progress_green else R.drawable.progress_red
         )
+        
         holder.tvAmounts.text = "R ${formatAmount(m.current)} of R ${formatAmount(m.target)}"
         holder.tvContrib?.text = "R ${"%.2f".format(m.monthlyContrib)}"
     }
 
+    /**
+     * Formats amounts with spaces for thousands for better readability.
+     */
     private fun formatAmount(v: Double): String {
         return if (v >= 1000) {
             val k = v.toInt()

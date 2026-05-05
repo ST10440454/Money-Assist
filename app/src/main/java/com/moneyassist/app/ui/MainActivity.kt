@@ -7,6 +7,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.moneyassist.app.R
 import com.moneyassist.app.databinding.ActivityMainBinding
 
+/**
+ * Main Activity that hosts the primary navigation and bottom navigation bar.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -16,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set up the Navigation Controller with the BottomNavigationView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        // Wire bottom nav — hides automatically for non-top-level destinations
         binding.bottomNavigation.setupWithNavController(navController)
     }
 

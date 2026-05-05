@@ -7,12 +7,17 @@ import com.moneyassist.app.data.entity.Category
 import com.moneyassist.app.data.repository.AppRepository
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing spending categories and their goals.
+ */
 class CategoryViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repo = AppRepository(app)
 
+    // Observable list of all categories
     val categories = repo.getAllCategories()
 
+    /** Adds a new category with optional spending goals. */
     fun addCategory(name: String, minGoal: Double, maxGoal: Double) {
         if (name.isBlank()) return
         viewModelScope.launch {
@@ -20,14 +25,16 @@ class CategoryViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** Updates an existing category. */
     fun updateCategory(category: Category) {
         viewModelScope.launch { repo.updateCategory(category) }
     }
 
+    /** Deletes a category. */
     fun deleteCategory(category: Category) {
         viewModelScope.launch { repo.deleteCategory(category) }
     }
 
-    /** Suspend lookup used by PhotoViewerFragment to resolve a category name. */
+    /** Retrieves a specific category by its ID. */
     suspend fun getCategoryById(id: Int): Category? = repo.getCategoryById(id)
 }
