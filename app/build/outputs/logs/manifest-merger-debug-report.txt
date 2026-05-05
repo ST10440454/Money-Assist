@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:38:9-46:20
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:38:9-46:20
 	android:grantUriPermissions
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:42:13-47
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:42:13-47
 	android:authorities
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:40:13-64
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:40:13-64
 	android:exported
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:41:13-37
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:41:13-37
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:39:13-62
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:39:13-62
 manifest
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:2:1-49:12
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:2:1-49:12
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:2:1-49:12
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:2:1-49:12
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:2:1-49:12
 MERGED from [androidx.databinding:viewbinding:8.7.3] C:\Users\User\.gradle\caches\9.0.0\transforms\4814fe731feb191498de8c9c225a3929\transformed\jetified-viewbinding-8.7.3\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-common:2.8.4] C:\Users\User\.gradle\caches\9.0.0\transforms\b0f4b6f626701eabbfbddcb1f38723ec\transformed\navigation-common-2.8.4\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.8.4] C:\Users\User\.gradle\caches\9.0.0\transforms\05c54ef8648ae21979fd10472c430d18\transformed\navigation-common-ktx-2.8.4\AndroidManifest.xml:2:1-7:12
@@ -105,36 +105,36 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.print:print:1.0.0] C:\Users\User\.gradle\caches\9.0.0\transforms\8a2d3c5e4623a1a5b66ee4cda0cc1b04\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\User\.gradle\caches\9.0.0\transforms\ae81d9c9cd7c45047faeeee0df20e5a6\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:2:1-7:12
 	package
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:2:11-69
 uses-feature#android.hardware.camera
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:4:5-6:36
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:4:5-6:36
 	android:required
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:6:9-33
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:6:9-33
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:5:9-47
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:5:9-47
 uses-permission#android.permission.CAMERA
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:8:5-65
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:8:5-65
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:8:22-62
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:8:22-62
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:9:5-10:38
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:9:5-10:38
 	android:maxSdkVersion
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:10:9-35
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:9:22-77
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:9:22-77
 uses-permission#android.permission.READ_MEDIA_IMAGES
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:11:5-76
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:11:5-76
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:11:22-73
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:11:22-73
 application
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:13:5-47:19
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:13:5-47:19
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:13:5-47:19
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:13:5-47:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\User\.gradle\caches\9.0.0\transforms\76f5000f0f42a6119430f28f2c82edc4\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\User\.gradle\caches\9.0.0\transforms\76f5000f0f42a6119430f28f2c82edc4\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\User\.gradle\caches\9.0.0\transforms\bb4a21776c2df0496c7ecb8193455b08\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
@@ -160,61 +160,61 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\User\.gradle\cache
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\User\.gradle\caches\9.0.0\transforms\7aca8852adba1309fb582b13c5a48575\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\User\.gradle\caches\9.0.0\transforms\7aca8852adba1309fb582b13c5a48575\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 	android:extractNativeLibs
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.15.0] C:\Users\User\.gradle\caches\9.0.0\transforms\8d946c6cbb06b03a1330330ec04f8e16\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:18:9-35
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:18:9-35
 	android:label
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:16:9-41
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:16:9-41
 	android:roundIcon
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:17:9-54
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:17:9-54
 	android:icon
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:15:9-43
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:15:9-43
 	android:allowBackup
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:19:9-49
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:19:9-49
 activity#com.moneyassist.app.ui.LoginActivity
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:21:9-30:20
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:21:9-30:20
 	android:label
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:24:13-45
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:24:13-45
 	android:exported
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:23:13-36
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:23:13-36
 	android:theme
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:25:13-53
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:25:13-53
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:22:13-45
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:22:13-45
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:26:13-29:29
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:26:13-29:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:27:17-69
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:27:25-66
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:27:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:28:17-77
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:28:27-74
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:28:27-74
 activity#com.moneyassist.app.ui.MainActivity
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:32:9-36:56
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:32:9-36:56
 	android:label
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:35:13-45
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:35:13-45
 	android:exported
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:34:13-37
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:34:13-37
 	android:theme
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:36:13-53
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:36:13-53
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:33:13-44
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:33:13-44
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:43:13-45:54
+ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:43:13-45:54
 	android:resource
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:45:17-51
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:45:17-51
 	android:name
-		ADDED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml:44:17-67
+		ADDED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml:44:17-67
 uses-sdk
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 MERGED from [androidx.databinding:viewbinding:8.7.3] C:\Users\User\.gradle\caches\9.0.0\transforms\4814fe731feb191498de8c9c225a3929\transformed\jetified-viewbinding-8.7.3\AndroidManifest.xml:5:5-44
 MERGED from [androidx.databinding:viewbinding:8.7.3] C:\Users\User\.gradle\caches\9.0.0\transforms\4814fe731feb191498de8c9c225a3929\transformed\jetified-viewbinding-8.7.3\AndroidManifest.xml:5:5-44
 MERGED from [androidx.navigation:navigation-common:2.8.4] C:\Users\User\.gradle\caches\9.0.0\transforms\b0f4b6f626701eabbfbddcb1f38723ec\transformed\navigation-common-2.8.4\AndroidManifest.xml:20:5-44
@@ -394,9 +394,9 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\User\.gradle\caches\9.0.0\tran
 MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\User\.gradle\caches\9.0.0\transforms\ae81d9c9cd7c45047faeeee0df20e5a6\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\User\.gradle\caches\9.0.0\transforms\ae81d9c9cd7c45047faeeee0df20e5a6\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
 	android:targetSdkVersion
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\User\Downloads\MoneyAssist updated\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\User\AndroidStudioProjects\MoneyAssist\app\src\main\AndroidManifest.xml
 activity#androidx.compose.ui.tooling.PreviewActivity
 ADDED from [androidx.compose.ui:ui-tooling-android:1.7.5] C:\Users\User\.gradle\caches\9.0.0\transforms\8b771255a81aaa9c74ab6ad5a4e3e1c4\transformed\jetified-ui-tooling-release\AndroidManifest.xml:23:9-25:39
 	android:exported
