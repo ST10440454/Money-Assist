@@ -40,10 +40,8 @@ android {
         viewBinding = true
     }
 
-    // Standardize configurations to resolve common dex merging conflicts
     configurations.all {
         resolutionStrategy {
-            // Force use of the empty listenablefuture artifact to avoid conflicts with Guava
             force("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
         }
     }
