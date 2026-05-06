@@ -6,6 +6,7 @@ env:
 
   # The name of the Play Store
   playstore_name: Money assist
+  path: app/build/outputs/apk/debug/*.apk
 
 on:
 
