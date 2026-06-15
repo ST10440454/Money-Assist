@@ -1,241 +1,166 @@
 package com.moneyassist.app.ui.fragment
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.moneyassist.app.R
+import com.moneyassist.app.data.db.AppDatabase
 import com.moneyassist.app.data.entity.ExpenseEntry
-import com.moneyassist.app.data.entity.Transaction
-import com.moneyassist.app.ui.viewmodel.CategoryViewModel
-import com.moneyassist.app.ui.viewmodel.ExpenseViewModel
-import com.moneyassist.app.ui.viewmodel.HomeViewModel
-import java.io.File
-import java.text.SimpleDateFormat
+import com.moneyassist.app.engine.PointsManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
 
-/**
- * Fragment for adding a new transaction (income or expense).
- * Supports picking dates, times, categories, and capturing/selecting a photo of a receipt.
- */
 class AddExpenseFragment : Fragment() {
 
-    private val expenseVm: ExpenseViewModel by activityViewModels()
-    private val categoryVm: CategoryViewModel by activityViewModels()
-    private val homeVm: HomeViewModel by activityViewModels()
-
-    private lateinit var etDate: EditText
-    private lateinit var etStartTime: EditText
-    private lateinit var etEndTime: EditText
-    private lateinit var etDescription: EditText
-    private lateinit var etAmount: EditText
-    private lateinit var spinnerCategory: Spinner
-    private lateinit var ivPhoto: ImageView
-    private lateinit var btnTypeExpense: MaterialButton
-    private lateinit var btnTypeIncome: MaterialButton
-
+    private val args: AddExpenseFragmentArgs by navArgs()
+    private var editEntry: ExpenseEntry? = null
+    private var selectedCategoryId: Int = 1
+    private var selectedDate: String = LocalDate.now().toString()
+    private var isIncomeMode = false
     private var photoUri: Uri? = null
-    private var currentPhotoPath: String? = null
-    private var currentType = "expense"
 
-    private val fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-    // Launcher for the camera to take a photo of a receipt
-    private val cameraLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
-            photoUri?.let {
-                ivPhoto.setImageURI(it)
-                ivPhoto.visibility = View.VISIBLE
-            }
-        }
+    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let { photoUri = it; view?.findViewById<ImageView>(R.id.ivPhoto)?.apply { setImageURI(it); visibility = View.VISIBLE } }
     }
 
-    // Launcher for selecting a photo from the gallery
-    private val galleryLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            photoUri = it
-            ivPhoto.setImageURI(it)
-            ivPhoto.visibility = View.VISIBLE
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_add_expense, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.fragment_add_expense, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val db = AppDatabase.getInstance(requireContext())
 
-        // Initialize UI components
-        etDate = view.findViewById(R.id.etDate)
-        etStartTime = view.findViewById(R.id.etStartTime)
-        etEndTime = view.findViewById(R.id.etEndTime)
-        etDescription = view.findViewById(R.id.etDescription)
-        etAmount = view.findViewById(R.id.etAmount)
-        spinnerCategory = view.findViewById(R.id.spinnerCategory)
-        ivPhoto = view.findViewById(R.id.ivPhoto)
-        btnTypeExpense = view.findViewById(R.id.btnTypeExpense)
-        btnTypeIncome = view.findViewById(R.id.btnTypeIncome)
+        val etAmount      = view.findViewById<TextInputEditText>(R.id.etAmount)
+        val etDescription = view.findViewById<TextInputEditText>(R.id.etDescription)
+        val etDate        = view.findViewById<TextInputEditText>(R.id.etDate)
+        val spinnerCat    = view.findViewById<Spinner>(R.id.spinnerCategory)
+        val btnTypeExp    = view.findViewById<MaterialButton>(R.id.btnTypeExpense)
+        val btnTypeInc    = view.findViewById<MaterialButton>(R.id.btnTypeIncome)
+        val btnSave       = view.findViewById<MaterialButton>(R.id.btnSave)
+        val btnCamera     = view.findViewById<MaterialButton>(R.id.btnCamera)
+        val btnGallery    = view.findViewById<MaterialButton>(R.id.btnGallery)
 
-        // Default the date to today
-        etDate.setText(LocalDate.now().format(fmt))
+        etDate.setText(selectedDate)
 
-        // Set up type selection (Expense vs. Income)
-        btnTypeExpense.setOnClickListener { setType("expense") }
-        btnTypeIncome.setOnClickListener { setType("income") }
+        fun setMode(income: Boolean) {
+            isIncomeMode = income
+            btnTypeExp.alpha = if (income) 0.5f else 1f
+            btnTypeInc.alpha = if (income) 1f else 0.5f
+        }
+        btnTypeExp.setOnClickListener { setMode(false) }
+        btnTypeInc.setOnClickListener { setMode(true) }
+        setMode(isIncomeMode)
 
-        // Date picker for the transaction date
         etDate.setOnClickListener {
-            val c = Calendar.getInstance()
+            val cal = Calendar.getInstance()
             DatePickerDialog(requireContext(), { _, y, m, d ->
-                etDate.setText(String.format("%04d-%02d-%02d", y, m + 1, d))
-            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
+                selectedDate = "%04d-%02d-%02d".format(y, m + 1, d)
+                etDate.setText(selectedDate)
+            }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        // Time pickers for start and end times
-        etStartTime.setOnClickListener { showTimePicker(etStartTime) }
-        etEndTime.setOnClickListener { showTimePicker(etEndTime) }
+        btnGallery.setOnClickListener { pickPhoto.launch("image/*") }
+        btnCamera.setOnClickListener  { pickPhoto.launch("image/*") }
 
-        // Populate the category spinner with data from the database
-        categoryVm.categories.observe(viewLifecycleOwner) { cats ->
-            val names = cats.map { it.name }
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, names)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerCategory.adapter = adapter
+        db.categoryDao().getAllCategories().observe(viewLifecycleOwner) { categories ->
+            if (categories.isEmpty()) return@observe
+            val names = categories.map { it.name }
+            spinnerCat.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, names)
+
+            spinnerCat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, v: View?, pos: Int, id: Long) {
+                    selectedCategoryId = categories[pos].id
+                }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
+            editEntry?.let { entry ->
+                val idx = categories.indexOfFirst { it.id == entry.categoryId }
+                if (idx >= 0) spinnerCat.setSelection(idx)
+            }
         }
 
-        // Image attachment options
-        view.findViewById<MaterialButton>(R.id.btnCamera).setOnClickListener { launchCamera() }
-        view.findViewById<MaterialButton>(R.id.btnGallery).setOnClickListener {
-            galleryLauncher.launch("image/*")
+        if (args.entryId != -1) {
+            lifecycleScope.launch {
+                val entry = withContext(Dispatchers.IO) { db.expenseEntryDao().getById(args.entryId) }
+                entry?.let {
+                    editEntry = it
+                    etAmount.setText(it.amount.toString())
+                    etDescription.setText(it.description)
+                    selectedDate = it.date
+                    etDate.setText(it.date)
+                    setMode(it.isIncome)
+
+                    val adapter = spinnerCat.adapter as? ArrayAdapter<String>
+                    if (adapter != null) {
+                        // BUG FIX: original called `db.categoryDao().getCategoryById(it.categoryId)`
+                        // directly on the Main dispatcher — Room suspend DAOs must run on an IO
+                        // thread or Room throws "Cannot access database on the main thread".
+                        // Wrapped in withContext(Dispatchers.IO) to fix this.
+                        val cat = withContext(Dispatchers.IO) {
+                            db.categoryDao().getCategoryById(it.categoryId)
+                        }
+                        cat?.let { c ->
+                            for (i in 0 until adapter.count) {
+                                if (adapter.getItem(i) == c.name) {
+                                    spinnerCat.setSelection(i)
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        // Save action
-        view.findViewById<MaterialButton>(R.id.btnSave).setOnClickListener { saveEntry() }
-    }
+        btnSave.setOnClickListener {
+            val amountStr   = etAmount.text.toString().trim()
+            val description = etDescription.text.toString().trim()
 
-    /** Updates the UI to reflect whether Expense or Income is selected. */
-    private fun setType(type: String) {
-        currentType = type
-        if (type == "expense") {
-            btnTypeExpense.setBackgroundColor(requireContext().getColor(R.color.expense_red_bg))
-            btnTypeExpense.setTextColor(requireContext().getColor(R.color.expense_red))
-            btnTypeIncome.setBackgroundColor(requireContext().getColor(android.R.color.transparent))
-            btnTypeIncome.setTextColor(requireContext().getColor(R.color.text_secondary))
-        } else {
-            btnTypeIncome.setBackgroundColor(requireContext().getColor(R.color.income_green_bg))
-            btnTypeIncome.setTextColor(requireContext().getColor(R.color.income_green))
-            btnTypeExpense.setBackgroundColor(requireContext().getColor(android.R.color.transparent))
-            btnTypeExpense.setTextColor(requireContext().getColor(R.color.text_secondary))
+            if (amountStr.isBlank()) { etAmount.error = "Enter an amount"; return@setOnClickListener }
+            val amount = amountStr.toDoubleOrNull()
+            if (amount == null || amount <= 0) { etAmount.error = "Invalid amount"; return@setOnClickListener }
+            if (description.isBlank()) { etDescription.error = "Enter a description"; return@setOnClickListener }
+
+            val now   = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
+            val isNew = editEntry == null
+
+            val entry = (editEntry ?: ExpenseEntry(
+                date = selectedDate, startTime = now, endTime = now,
+                description = description, amount = amount,
+                categoryId = selectedCategoryId, isIncome = isIncomeMode,
+                isSynced = false
+            )).copy(
+                date = selectedDate,
+                description = description,
+                amount = amount,
+                categoryId = selectedCategoryId,
+                isIncome = isIncomeMode,
+                photoPath = photoUri?.toString() ?: editEntry?.photoPath,
+                isSynced = false
+            )
+
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (isNew) db.expenseEntryDao().insertEntry(entry)
+                    else db.expenseEntryDao().updateEntry(entry)
+                }
+                if (isNew) PointsManager.onTransactionLogged(requireContext())
+                findNavController().popBackStack()
+            }
         }
-    }
-
-    /** Displays a time picker dialog. */
-    private fun showTimePicker(target: EditText) {
-        val c = Calendar.getInstance()
-        TimePickerDialog(requireContext(), { _, h, m ->
-            target.setText(String.format("%02d:%02d", h, m))
-        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show()
-    }
-
-    /** Launches the camera intent. */
-    private fun launchCamera() {
-        val photoFile = createImageFile()
-        val uri = FileProvider.getUriForFile(
-            requireContext(),
-            "${requireContext().packageName}.fileprovider",
-            photoFile
-        )
-        photoUri = uri
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-            putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        }
-        cameraLauncher.launch(intent)
-    }
-
-    /** Creates a temporary file for the captured image. */
-    private fun createImageFile(): File {
-        val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("IMG_${ts}_", ".jpg", dir).also {
-            currentPhotoPath = it.absolutePath
-        }
-    }
-
-    /** Validates and saves the transaction to the database. */
-    private fun saveEntry() {
-        val description = etDescription.text.toString().trim()
-        val amountStr = etAmount.text.toString().trim()
-        val date = etDate.text.toString().trim()
-        val startTime = etStartTime.text.toString().trim().ifEmpty { "00:00" }
-        val endTime = etEndTime.text.toString().trim().ifEmpty { "00:00" }
-
-        if (description.isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter a description", Toast.LENGTH_SHORT).show()
-            return
-        }
-        val amount = amountStr.toDoubleOrNull()
-        if (amount == null || amount <= 0) {
-            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val catName = spinnerCategory.selectedItem?.toString() ?: "Other"
-        val catIcon = when (catName.lowercase()) {
-            "food" -> "🛒"
-            "transport" -> "🚗"
-            "entertainment" -> "🎬"
-            "health" -> "💪"
-            "utilities" -> "💡"
-            "salary" -> "💼"
-            else -> "📦"
-        }
-
-        // Save as a Transaction entity for general tracking
-        val tx = Transaction(
-            name = description,
-            date = date,
-            amount = amount,
-            type = currentType,
-            category = catName,
-            icon = catIcon
-        )
-        homeVm.addTransaction(tx)
-
-        // Also save as an ExpenseEntry for detailed reporting
-        val catId = 1 // Simplified; ideally resolved from selection
-        val entry = ExpenseEntry(
-            date = date,
-            startTime = startTime,
-            endTime = endTime,
-            description = description,
-            amount = amount,
-            categoryId = catId,
-            photoPath = currentPhotoPath
-        )
-        expenseVm.addEntry(entry)
-
-        Toast.makeText(requireContext(), "✅ Transaction saved!", Toast.LENGTH_SHORT).show()
-        findNavController().navigateUp()
     }
 }

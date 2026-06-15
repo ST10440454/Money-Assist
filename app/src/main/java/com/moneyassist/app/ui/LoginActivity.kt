@@ -2,67 +2,91 @@ package com.moneyassist.app.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.moneyassist.app.databinding.ActivityLoginBinding
+import com.moneyassist.app.R
 import com.moneyassist.app.ui.viewmodel.LoginViewModel
-import kotlinx.coroutines.launch
+import com.moneyassist.app.util.PrefsManager
 
-/**
- * Activity for user login and registration.
- */
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+    private val vm: LoginViewModel by viewModels()
+    private var isLoginMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        observeAuthResult()
+        // Auto-skip to correct destination if already logged in
+        val userId = PrefsManager.getLoggedInUserId(this)
+        if (userId != -1) {
+            navigateAfterAuth(needsOnboarding = !PrefsManager.isOnboardingDone(this))
+            return
+        }
 
-        // Handle Login button click
-        binding.btnLogin.setOnClickListener {
-            val username = binding.etUsername.text.toString()
-            val password = binding.etPassword.text.toString()
-            if (username.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
+        setContentView(R.layout.activity_login)
+
+        val logo         = findViewById<ImageView>(R.id.iv_logo)
+        val tvTitle      = findViewById<TextView>(R.id.tv_app_title)
+        val tilUsername  = findViewById<View>(R.id.til_username)
+        val etUsername   = findViewById<EditText>(R.id.et_username)
+        val etEmail      = findViewById<EditText>(R.id.et_email)
+        val etPassword   = findViewById<EditText>(R.id.et_password)
+        val tilConfirm   = findViewById<View>(R.id.til_confirm_password)
+        val etConfirm    = findViewById<EditText>(R.id.et_confirm_password)
+        val btnAction    = findViewById<Button>(R.id.btn_login)
+        val tvToggle     = findViewById<TextView>(R.id.tv_toggle_mode)
+        val tvError      = findViewById<TextView>(R.id.tv_error)
+        val progressBar  = findViewById<ProgressBar>(R.id.progress_bar)
+
+        logo.setImageResource(R.drawable.logo_money_assist)
+
+        tvToggle.setOnClickListener {
+            isLoginMode = !isLoginMode
+            tilUsername.visibility = if (isLoginMode) View.GONE else View.VISIBLE
+            tilConfirm.visibility  = if (isLoginMode) View.GONE else View.VISIBLE
+            btnAction.text        = if (isLoginMode) "Log In" else "Create Account"
+            tvToggle.text         = if (isLoginMode) "Don't have an account? Sign up" else "Already have an account? Log in"
+            tvError.visibility    = View.GONE
+            vm.resetState()
+        }
+
+        btnAction.setOnClickListener {
+            tvError.visibility = View.GONE
+            val email    = etEmail.text.toString()
+            val password = etPassword.text.toString()
+            if (isLoginMode) {
+                vm.login(email, password)
             } else {
-                viewModel.login(username, password)
+                vm.register(
+                    username    = etUsername.text.toString(),
+                    email       = email,
+                    password    = password,
+                    confirmPassword = etConfirm.text.toString()
+                )
             }
         }
 
-        // Handle Register button click
-        binding.btnRegister.setOnClickListener {
-            val username = binding.etUsername.text.toString()
-            val password = binding.etPassword.text.toString()
-            if (username.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
-            } else {
-                viewModel.register(username, password)
+        vm.loginState.observe(this) { state ->
+            progressBar.visibility = View.GONE
+            when (state) {
+                is LoginViewModel.LoginState.Loading -> progressBar.visibility = View.VISIBLE
+                is LoginViewModel.LoginState.Success -> navigateAfterAuth(state.needsOnboarding)
+                is LoginViewModel.LoginState.Error -> {
+                    tvError.text = state.message
+                    tvError.visibility = View.VISIBLE
+                }
+                else -> Unit
             }
         }
     }
 
-    /**
-     * Observes the authentication result and navigates to the main activity on success.
-     */
-    private fun observeAuthResult() {
-        lifecycleScope.launch {
-            viewModel.authResult.collect { result ->
-                when (result) {
-                    is LoginViewModel.AuthResult.Success -> {
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        finish()
-                    }
-                    is LoginViewModel.AuthResult.Error ->
-                        Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+    private fun navigateAfterAuth(needsOnboarding: Boolean) {
+        val target = if (needsOnboarding) OnboardingActivity::class.java else MainActivity::class.java
+        startActivity(Intent(this, target).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
+        finish()
     }
 }

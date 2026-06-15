@@ -6,67 +6,47 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
+    <fragment android:id="@+id/homeFragment"
         android:name="com.moneyassist.app.ui.fragment.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_home_to_addExpense"
-            app:destination="@id/addExpenseFragment"/>
-        <action
-            android:id="@+id/action_home_to_transactions"
-            app:destination="@id/transactionListFragment"/>
-        <action
-            android:id="@+id/action_home_to_bills"
-            app:destination="@id/billsFragment"/>
-        <action
-            android:id="@+id/action_home_to_missions"
-            app:destination="@id/missionsFragment"/>
+        android:label="Home" tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_home_to_addExpense" app:destination="@id/addExpenseFragment"/>
+        <action android:id="@+id/action_home_to_transactions" app:destination="@id/transactionListFragment"/>
+        <action android:id="@+id/action_home_to_bills" app:destination="@id/billsFragment"/>
+        <action android:id="@+id/action_home_to_missions" app:destination="@id/missionsFragment"/>
     </fragment>
 
-    <fragment
-        android:id="@+id/transactionListFragment"
+    <fragment android:id="@+id/transactionListFragment"
         android:name="com.moneyassist.app.ui.fragment.TransactionListFragment"
-        android:label="Transactions"
-        tools:layout="@layout/fragment_transaction_list">
-        <action
-            android:id="@+id/action_transactions_to_addExpense"
-            app:destination="@id/addExpenseFragment">
-            <argument
-                android:name="entryId"
-                app:argType="integer"
-                android:defaultValue="-1"/>
+        android:label="Transactions" tools:layout="@layout/fragment_transaction_list">
+        <action android:id="@+id/action_transactions_to_addExpense" app:destination="@id/addExpenseFragment">
+            <argument android:name="entryId" app:argType="integer" android:defaultValue="-1"/>
         </action>
     </fragment>
 
-    <fragment
-        android:id="@+id/billsFragment"
+    <fragment android:id="@+id/hubFragment"
+        android:name="com.moneyassist.app.ui.fragment.HubFragment"
+        android:label="Hub" tools:layout="@layout/fragment_hub"/>
+
+    <fragment android:id="@+id/billsFragment"
         android:name="com.moneyassist.app.ui.fragment.BillsFragment"
-        android:label="Bills"
-        tools:layout="@layout/fragment_bills"/>
+        android:label="Bills" tools:layout="@layout/fragment_bills"/>
 
-    <fragment
-        android:id="@+id/missionsFragment"
+    <fragment android:id="@+id/missionsFragment"
         android:name="com.moneyassist.app.ui.fragment.MissionsFragment"
-        android:label="Missions"
-        tools:layout="@layout/fragment_missions"/>
+        android:label="Missions" tools:layout="@layout/fragment_missions"/>
 
-    <fragment
-        android:id="@+id/learnFragment"
+    <fragment android:id="@+id/learnFragment"
         android:name="com.moneyassist.app.ui.fragment.LearnFragment"
-        android:label="Learn"
-        tools:layout="@layout/fragment_learn"/>
+        android:label="Learn" tools:layout="@layout/fragment_learn"/>
 
-    <fragment
-        android:id="@+id/addExpenseFragment"
+    <fragment android:id="@+id/settingsFragment"
+        android:name="com.moneyassist.app.ui.fragment.SettingsFragment"
+        android:label="Settings" tools:layout="@layout/fragment_settings"/>
+
+    <fragment android:id="@+id/addExpenseFragment"
         android:name="com.moneyassist.app.ui.fragment.AddExpenseFragment"
-        android:label="Add / Edit Transaction"
-        tools:layout="@layout/fragment_add_expense">
-        <argument
-            android:name="entryId"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+        android:label="Add / Edit Transaction" tools:layout="@layout/fragment_add_expense">
+        <argument android:name="entryId" app:argType="integer" android:defaultValue="-1"/>
     </fragment>
 
 </navigation>

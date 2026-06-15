@@ -26,10 +26,10 @@ class TransactionAdapter(
 
     /** ViewHolder for transaction items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
-        val tvIcon: TextView = view.findViewById(R.id.tvTxIcon)
-        val tvName: TextView = view.findViewById(R.id.tvTxName)
-        val tvDate: TextView = view.findViewById(R.id.tvTxDate)
-        val tvAmount: TextView = view.findViewById(R.id.tvTxAmount)
+        val tvIcon: TextView = view.findViewById(R.id.tv_tx_icon)
+        val tvName: TextView = view.findViewById(R.id.tv_tx_description)
+        val tvDate: TextView = view.findViewById(R.id.tv_tx_date)
+        val tvAmount: TextView = view.findViewById(R.id.tv_tx_amount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

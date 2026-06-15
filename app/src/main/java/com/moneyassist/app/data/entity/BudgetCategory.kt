@@ -4,7 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Represents a spending category with a set budget limit.
+ * A spending category with a monthly budget limit.
+ *
+ * budgetMode: "flexible" — warns when over limit
+ *             "strict"   — deducts Assist Points when over limit
  */
 @Entity(tableName = "budget_categories")
 data class BudgetCategory(
@@ -12,5 +15,6 @@ data class BudgetCategory(
     val name: String,
     val limitAmount: Double,
     val spent: Double = 0.0,
-    val icon: String = "💰"
+    val icon: String = "💰",
+    val budgetMode: String = "flexible"  // "flexible" | "strict"
 )

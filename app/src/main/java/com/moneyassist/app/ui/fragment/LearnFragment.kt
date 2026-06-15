@@ -44,10 +44,16 @@ class LearnFragment : Fragment() {
         // Initialize adapter with save and read interactions
         articleAdapter = ArticleAdapter(
             onSave = { article ->
-                article.saved = !article.saved
-                val msg = if (article.saved) "🔖 Article saved!" else "Removed from saved"
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-                filterAndSubmit(view.findViewById<EditText>(R.id.etLearnSearch).text.toString())
+                // Update the master list with a new copy of the article
+                val index = allArticles.indexOfFirst { it.id == article.id }
+                if (index != -1) {
+                    val updated = article.copy(saved = !article.saved)
+                    allArticles[index] = updated
+                    
+                    val msg = if (updated.saved) "🔖 Article saved!" else "Removed from saved"
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                    filterAndSubmit(view.findViewById<EditText>(R.id.etLearnSearch).text.toString())
+                }
             },
             onRead = { article ->
                 Toast.makeText(requireContext(), "📖 ${article.title} — coming soon!", Toast.LENGTH_SHORT).show()

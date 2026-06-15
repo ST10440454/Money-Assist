@@ -1,71 +1,127 @@
 package com.moneyassist.app.data.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.moneyassist.app.data.db.AppDatabase
 import com.moneyassist.app.data.entity.*
+import com.moneyassist.app.data.model.CategorySpending
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 /**
- * Repository class that abstracts access to multiple data sources.
- * It provides a clean API for the rest of the application to interact with data.
+ * Single source of truth for all data operations.
+ * ViewModels talk to this layer; this talks to DAOs.
+ *
+ * Note: Use-case classes (Domain layer) can be added here as the app grows.
  */
 class AppRepository(context: Context) {
 
     private val db = AppDatabase.getInstance(context)
-    private val userDao = db.userDao()
-    private val categoryDao = db.categoryDao()
-    private val expenseDao = db.expenseEntryDao()
-    private val transactionDao = db.transactionDao()
-    private val billDao = db.billDao()
-    private val missionDao = db.missionDao()
-    private val budgetDao = db.budgetCategoryDao()
 
-    // ── User Authentication ──────────────────────────────────────────────────
-    suspend fun registerUser(user: User) = userDao.insertUser(user)
-    suspend fun login(username: String, password: String) = userDao.login(username, password)
-    suspend fun getUserByUsername(username: String) = userDao.getUserByUsername(username)
+    // ── Transactions / Expenses ───────────────────────────────────
+    val allEntries: LiveData<List<ExpenseEntry>> = db.expenseEntryDao().getAllEntries()
+    val recentEntries: LiveData<List<ExpenseEntry>> = db.expenseEntryDao().getRecentEntries()
+    val totalExpenses: LiveData<Double> = db.expenseEntryDao().getTotalExpenses()
+    val totalIncome: LiveData<Double> = db.expenseEntryDao().getTotalIncome()
 
-    // ── Spending Categories ──────────────────────────────────────
-    fun getAllCategories() = categoryDao.getAllCategories()
-    suspend fun insertCategory(category: Category) = categoryDao.insertCategory(category)
-    suspend fun updateCategory(category: Category) = categoryDao.updateCategory(category)
-    suspend fun deleteCategory(category: Category) = categoryDao.deleteCategory(category)
-    suspend fun getCategoryById(id: Int) = categoryDao.getCategoryById(id)
+    fun getEntriesBetween(start: String, end: String): LiveData<List<ExpenseEntry>> =
+        db.expenseEntryDao().getEntriesBetween(start, end)
 
-    // ── Detailed Expense Entries ─────────────────────────────────
-    fun getEntriesBetween(start: String, end: String) = expenseDao.getEntriesBetween(start, end)
-    fun getCategorySpendingBetween(start: String, end: String) = expenseDao.getCategorySpendingBetween(start, end)
-    suspend fun insertEntry(entry: ExpenseEntry) = expenseDao.insertEntry(entry)
-    suspend fun updateEntry(entry: ExpenseEntry) = expenseDao.updateEntry(entry)
-    suspend fun deleteEntry(entry: ExpenseEntry) = expenseDao.deleteEntry(entry)
-    suspend fun getEntryById(id: Int) = expenseDao.getEntryById(id)
+    fun getCategorySpendingBetween(start: String, end: String): LiveData<List<CategorySpending>> =
+        db.expenseEntryDao().getCategorySpendingBetween(start, end)
 
-    // ── Transactions (Income & Expenses) ─────────────────────────
-    fun getRecentTransactions(limit: Int = 5) = transactionDao.getRecent(limit)
-    fun getAllTransactions() = transactionDao.getAll()
-    fun getTransactionsBetween(start: String, end: String) = transactionDao.getBetween(start, end)
-    fun getNetWorth() = transactionDao.getNetWorth()
-    suspend fun insertTransaction(tx: Transaction) = transactionDao.insert(tx)
-    suspend fun updateTransaction(tx: Transaction) = transactionDao.update(tx)
-    suspend fun deleteTransaction(tx: Transaction) = transactionDao.delete(tx)
+    suspend fun getEntryById(id: Int): ExpenseEntry? =
+        withContext(Dispatchers.IO) { db.expenseEntryDao().getById(id) }
 
-    // ── Bills & Recurring Payments ───────────────────────────────
-    fun getUpcomingBills() = billDao.getUpcoming()
-    fun getPaidBills() = billDao.getPaid()
-    fun getAllBills() = billDao.getAll()
-    fun getTotalUpcoming() = billDao.getTotalUpcoming()
-    suspend fun insertBill(bill: Bill) = billDao.insert(bill)
-    suspend fun updateBill(bill: Bill) = billDao.update(bill)
-    suspend fun deleteBill(bill: Bill) = billDao.delete(bill)
+    suspend fun saveEntry(entry: ExpenseEntry): Long =
+        withContext(Dispatchers.IO) { db.expenseEntryDao().insertEntry(entry) }
 
-    // ── Financial Missions (Goals) ───────────────────────────────
-    fun getAllMissions() = missionDao.getAll()
-    suspend fun insertMission(mission: Mission) = missionDao.insert(mission)
-    suspend fun updateMission(mission: Mission) = missionDao.update(mission)
-    suspend fun deleteMission(mission: Mission) = missionDao.delete(mission)
+    suspend fun updateEntry(entry: ExpenseEntry) =
+        withContext(Dispatchers.IO) { db.expenseEntryDao().updateEntry(entry) }
 
-    // ── Budget Limits per Category ──────────────────────────────────────
-    fun getAllBudgetCategories() = budgetDao.getAll()
-    suspend fun insertBudgetCategory(bc: BudgetCategory) = budgetDao.insert(bc)
-    suspend fun updateBudgetCategory(bc: BudgetCategory) = budgetDao.update(bc)
-    suspend fun deleteBudgetCategory(bc: BudgetCategory) = budgetDao.delete(bc)
+    suspend fun deleteEntry(entry: ExpenseEntry) =
+        withContext(Dispatchers.IO) { db.expenseEntryDao().deleteEntry(entry) }
+
+    // Legacy Transactions
+    fun getTransactionsBetween(start: String, end: String): LiveData<List<Transaction>> =
+        db.transactionDao().getBetween(start, end)
+
+    suspend fun insertTransaction(tx: Transaction) =
+        withContext(Dispatchers.IO) { db.transactionDao().insert(tx) }
+
+    suspend fun deleteTransaction(tx: Transaction) =
+        withContext(Dispatchers.IO) { db.transactionDao().delete(tx) }
+
+    // ── Bills ─────────────────────────────────────────────────────
+    val upcomingBills: LiveData<List<Bill>> = db.billDao().getTop3Upcoming()
+    val allBills: LiveData<List<Bill>> = db.billDao().getAll()
+    val totalUpcoming: LiveData<Double> = db.billDao().getTotalUpcoming()
+
+    fun getUpcomingBillsList(): LiveData<List<Bill>> = db.billDao().getUpcoming()
+    fun getPaidBills(): LiveData<List<Bill>> = db.billDao().getPaid()
+
+    suspend fun insertBill(bill: Bill) =
+        withContext(Dispatchers.IO) { db.billDao().insertBill(bill) }
+
+    suspend fun saveBill(bill: Bill) =
+        withContext(Dispatchers.IO) { db.billDao().insertBill(bill) }
+
+    suspend fun updateBill(bill: Bill) =
+        withContext(Dispatchers.IO) { db.billDao().update(bill) }
+
+    suspend fun deleteBill(bill: Bill) =
+        withContext(Dispatchers.IO) { db.billDao().delete(bill) }
+
+    suspend fun markBillPaid(billId: Int) =
+        withContext(Dispatchers.IO) { db.billDao().markPaid(billId, LocalDate.now().toString()) }
+
+    // ── Missions ──────────────────────────────────────────────────
+    val activeMissions: LiveData<List<Mission>> = db.missionDao().getActive()
+    val completedMissions: LiveData<List<Mission>> = db.missionDao().getCompleted()
+
+    suspend fun saveMission(mission: Mission): Long =
+        withContext(Dispatchers.IO) { db.missionDao().insertMission(mission) }
+
+    suspend fun updateMission(mission: Mission) =
+        withContext(Dispatchers.IO) { db.missionDao().update(mission) }
+
+    // ── Budget categories ─────────────────────────────────────────
+    val budgetCategories: LiveData<List<BudgetCategory>> = db.budgetCategoryDao().getAllBudgetCategories()
+
+    suspend fun saveBudgetCategory(category: BudgetCategory) =
+        withContext(Dispatchers.IO) { db.budgetCategoryDao().insertBudgetCategory(category) }
+
+    suspend fun getSpendForCategory(categoryId: Int): Double =
+        withContext(Dispatchers.IO) {
+            val startOfMonth = LocalDate.now().withDayOfMonth(1).toString()
+            db.expenseEntryDao().getSpendForCategory(categoryId, startOfMonth)
+        }
+
+    // ── Hub ───────────────────────────────────────────────────────
+    val placedHubItems: LiveData<List<HubItem>> = db.hubItemDao().getAll()
+    val totalPoints: LiveData<Int> = db.pointsLedgerDao().getTotalPoints()
+
+    // ── Categories ────────────────────────────────────────────────
+    val allCategories: LiveData<List<Category>> = db.categoryDao().getAllCategories()
+
+    suspend fun insertCategory(category: Category) =
+        withContext(Dispatchers.IO) { db.categoryDao().insertCategory(category) }
+
+    suspend fun updateCategory(category: Category) =
+        withContext(Dispatchers.IO) { db.categoryDao().updateCategory(category) }
+
+    suspend fun deleteCategory(category: Category) =
+        withContext(Dispatchers.IO) { db.categoryDao().deleteCategory(category) }
+
+    suspend fun getCategoryById(id: Int): Category? =
+        withContext(Dispatchers.IO) { db.categoryDao().getCategoryById(id) }
+
+    companion object {
+        @Volatile private var INSTANCE: AppRepository? = null
+        fun getInstance(context: Context): AppRepository =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AppRepository(context.applicationContext).also { INSTANCE = it }
+            }
+    }
 }

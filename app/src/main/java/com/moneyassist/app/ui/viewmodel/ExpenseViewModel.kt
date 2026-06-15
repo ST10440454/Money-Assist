@@ -18,10 +18,12 @@ import java.time.format.DateTimeFormatter
  */
 class ExpenseViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val repo = AppRepository(app)
+    // BUG FIX: was `AppRepository(app)` which creates a second repository instance,
+    // breaking the single-source-of-truth and causing LiveData observers on the Home
+    // screen to not see writes made through this ViewModel.
+    private val repo = AppRepository.getInstance(app)
     private val fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-    // Date range filter for entries and reports. Default is current month to today.
     private val _dateRange = MutableLiveData(
         Pair(
             LocalDate.now().withDayOfMonth(1).format(fmt),
@@ -30,36 +32,29 @@ class ExpenseViewModel(app: Application) : AndroidViewModel(app) {
     )
     val dateRange: LiveData<Pair<String, String>> = _dateRange
 
-    /** Updates the current filter date range. */
     fun setDateRange(start: String, end: String) {
         _dateRange.value = Pair(start, end)
     }
 
-    // List of expense entries filtered by the current date range.
     val entries: LiveData<List<ExpenseEntry>> = _dateRange.switchMap { (s, e) ->
         repo.getEntriesBetween(s, e)
     }
 
-    // Summary of spending per category for the current date range.
     val categorySpending: LiveData<List<CategorySpending>> = _dateRange.switchMap { (s, e) ->
         repo.getCategorySpendingBetween(s, e)
     }
 
-    /** Adds a new expense entry. */
     fun addEntry(entry: ExpenseEntry) {
-        viewModelScope.launch { repo.insertEntry(entry) }
+        viewModelScope.launch { repo.saveEntry(entry) }
     }
 
-    /** Updates an existing expense entry. */
     fun updateEntry(entry: ExpenseEntry) {
         viewModelScope.launch { repo.updateEntry(entry) }
     }
 
-    /** Deletes an expense entry. */
     fun deleteEntry(entry: ExpenseEntry) {
         viewModelScope.launch { repo.deleteEntry(entry) }
     }
 
-    /** Fetches a specific entry by its ID. */
     suspend fun getEntryById(id: Int): ExpenseEntry? = repo.getEntryById(id)
 }

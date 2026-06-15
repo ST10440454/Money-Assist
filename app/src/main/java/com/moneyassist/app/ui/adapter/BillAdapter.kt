@@ -3,6 +3,7 @@ package com.moneyassist.app.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,12 +27,12 @@ class BillAdapter(
 
     /** ViewHolder for bill items. */
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
-        val tvCheck: TextView = view.findViewById(R.id.tvBillCheck)
-        val tvIcon: TextView = view.findViewById(R.id.tvBillIcon)
-        val tvName: TextView = view.findViewById(R.id.tvBillName)
-        val tvDue: TextView = view.findViewById(R.id.tvBillDue)
-        val tvRecurring: TextView = view.findViewById(R.id.tvBillRecurring)
-        val tvAmount: TextView = view.findViewById(R.id.tvBillAmount)
+        val cbPaid: CheckBox = view.findViewById(R.id.cb_mark_paid)
+        val tvIcon: TextView = view.findViewById(R.id.tv_bill_icon)
+        val tvName: TextView = view.findViewById(R.id.tv_bill_name)
+        val tvDue: TextView = view.findViewById(R.id.tv_bill_due)
+        val tvRecurring: TextView = view.findViewById(R.id.tv_bill_recurring)
+        val tvAmount: TextView = view.findViewById(R.id.tv_bill_amount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -54,12 +55,13 @@ class BillAdapter(
             )
         )
         
-        holder.tvRecurring.text = "Recurring: ${bill.recurring}"
+        holder.tvRecurring.text = bill.recurring
         holder.tvAmount.text = "R ${"%.2f".format(bill.amount)}"
         
         // Handle payment status and click event
-        holder.tvCheck.text = if (bill.isPaid) "✓" else "○"
-        holder.tvCheck.setOnClickListener {
+        holder.cbPaid.isChecked = bill.isPaid
+        holder.cbPaid.isEnabled = !bill.isPaid
+        holder.cbPaid.setOnClickListener {
             if (!bill.isPaid) onMarkPaid(bill)
         }
     }

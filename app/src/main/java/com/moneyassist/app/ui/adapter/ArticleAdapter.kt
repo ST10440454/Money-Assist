@@ -18,7 +18,7 @@ data class Article(
     val category: String,
     val readMinutes: Int,
     val excerpt: String,
-    var saved: Boolean = false
+    val saved: Boolean = false
 )
 
 /**

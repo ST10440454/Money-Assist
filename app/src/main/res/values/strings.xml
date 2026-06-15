@@ -1,17 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Money Assist</string>
+
+    <!-- Auth -->
+    <string name="login">Log In</string>
+    <string name="register">Create Account</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="username">Username</string>
+    <string name="toggle_to_register">Don\'t have an account? Sign up</string>
+    <string name="toggle_to_login">Already have an account? Log in</string>
+
+    <!-- Nav -->
     <string name="nav_home">Home</string>
-    <string name="nav_transactions">Transactions</string>
-    <string name="nav_bills">Bills</string>
+    <string name="nav_hub">My Hub</string>
     <string name="nav_missions">Missions</string>
     <string name="nav_learn">Learn</string>
-    <string name="coach_cash">Coach Cash</string>
-    <string name="add_transaction">Add Transaction</string>
-    <string name="total_net_worth">Total Net Worth</string>
-    <string name="recent_transactions">Recent Transactions</string>
-    <string name="upcoming_bills">Upcoming Bills</string>
-    <string name="active_missions">Active Missions</string>
-    <string name="see_all">See All</string>
-    <string name="tip_prefix">💡 Tip from Coach Cash</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_header_title">Money Assist Setup</string>
+    <string name="logo_content_description">Logo</string>
+    <string name="onboarding_welcome">Welcome to Money Assist!</string>
+    <string name="choose_avatar">Choose your avatar</string>
+    <string name="continue_btn">Continue →</string>
+    <string name="skip">Skip for now</string>
+
+    <!-- Hub -->
+    <string name="assist_points_label">⭐ Assist Points</string>
+    <string name="open_shop">🏪  Open Shop</string>
+    <string name="hub_title">My Hub</string>
+    <string name="coach_cash_hub">Coach Cash: Log transactions daily to earn points and grow your hub!</string>
+
+    <!-- Missions -->
+    <string name="tab_active">Active</string>
+    <string name="tab_completed">Completed</string>
+    <string name="new_mission">+ New Mission</string>
+    <string name="recommended_contrib">Recommended monthly contribution:</string>
+
+    <!-- Budgeting modes -->
+    <string name="mode_flexible">Flexible</string>
+    <string name="mode_strict">Strict</string>
+
+    <!-- Bills -->
+    <string name="mark_paid">Mark Paid</string>
+    <string name="bill_due_in_3">Due in 3 days</string>
+    <string name="bill_due_today">Due TODAY</string>
+
+    <!-- Points events -->
+    <string name="pts_daily_log">+10 pts — Daily log</string>
+    <string name="pts_streak">+5 pts — Streak bonus 🔥</string>
+    <string name="pts_mission_half">+50 pts — Mission 50%!</string>
+    <string name="pts_mission_done">+100 pts — Mission complete! 🎉</string>
+
+    <!-- Settings -->
+    <string name="save_changes">Save Changes</string>
+    <string name="logout">Log Out</string>
+
+    <!-- Coach Cash contextual tips -->
+    <string name="coach_tip_dashboard">Track every rand — your hub grows with every log!</string>
+    <string name="coach_tip_missions">Break big goals into monthly contributions. Small steps, big wins!</string>
+    <string name="coach_tip_bills">Paying on time protects your score and saves on late fees.</string>
+    <string name="coach_tip_learn">Knowledge is your best financial asset. Read one tip a day!</string>
 </resources>

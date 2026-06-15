@@ -4,14 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.moneyassist.app.data.entity.BudgetCategory
 
-/**
- * Data Access Object for budget categories and their limits.
- */
 @Dao
 interface BudgetCategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(bc: BudgetCategory): Long
+    suspend fun insertBudgetCategory(bc: BudgetCategory): Long
 
     @Update
     suspend fun update(bc: BudgetCategory)
@@ -19,7 +16,9 @@ interface BudgetCategoryDao {
     @Delete
     suspend fun delete(bc: BudgetCategory)
 
-    /** Retrieves all budget categories sorted by name. */
     @Query("SELECT * FROM budget_categories ORDER BY name ASC")
-    fun getAll(): LiveData<List<BudgetCategory>>
+    fun getAllBudgetCategories(): LiveData<List<BudgetCategory>>
+
+    @Query("UPDATE budget_categories SET spent = :spent WHERE id = :id")
+    suspend fun updateSpent(id: Int, spent: Double)
 }

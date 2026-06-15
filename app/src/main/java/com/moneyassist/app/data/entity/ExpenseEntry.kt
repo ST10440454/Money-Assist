@@ -6,7 +6,8 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
- * Represents a detailed expense entry, potentially linked to a category and containing time info.
+ * Represents a detailed expense/income entry linked to a category.
+ * [isSynced] is set to false on creation and flipped to true by [SyncWorker].
  */
 @Entity(
     tableName = "expense_entries",
@@ -15,18 +16,21 @@ import androidx.room.PrimaryKey
             entity = Category::class,
             parentColumns = ["id"],
             childColumns = ["categoryId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.SET_DEFAULT
         )
     ],
     indices = [Index("categoryId")]
 )
 data class ExpenseEntry(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val date: String,           // Format: yyyy-MM-dd
-    val startTime: String,      // Format: HH:mm
-    val endTime: String,        // Format: HH:mm
+    val date: String,
+    val startTime: String,
+    val endTime: String,
     val description: String,
     val amount: Double,
-    val categoryId: Int,
-    val photoPath: String? = null   // Optional path to an image of the receipt
+    val categoryId: Int = 1,
+    val isIncome: Boolean = false,
+    val notes: String? = null,
+    val photoPath: String? = null,
+    val isSynced: Boolean = false   // Managed by SyncWorker
 )

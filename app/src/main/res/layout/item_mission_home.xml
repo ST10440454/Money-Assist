@@ -4,101 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/white">
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="14dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="6dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_mission_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvMissionName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cape Town Vacation"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"/>
-                <TextView
-                    android:id="@+id/tvMissionDeadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📅 Target: 2026-12-31"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvMissionTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Savings"
-                android:textSize="11sp"
+                android:text="Emergency Fund"
                 android:textStyle="bold"
-                android:textColor="@color/income_green"
-                android:background="@drawable/bg_tag_savings"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="4dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Progress"
-                android:textSize="12sp"
-                android:textColor="@color/text_secondary"/>
-            <TextView
-                android:id="@+id/tvMissionPct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="40%"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:textSize="15sp"
                 android:textColor="@color/text_primary"/>
+
+            <TextView
+                android:id="@+id/tv_mission_pct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:textSize="13sp"
+                android:textColor="@color/green_primary"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/progressMission"
+            android:id="@+id/progress_mission"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:progress="40"
-            android:progressDrawable="@drawable/progress_green"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="4dp"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="@color/green_primary"
+            android:progressBackgroundTint="@color/border"/>
 
         <TextView
-            android:id="@+id/tvMissionAmounts"
+            android:id="@+id/tv_monthly_contrib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="R 3 200 of R 8 000"
+            android:text="R0/mo recommended"
             android:textSize="12sp"
             android:textColor="@color/text_secondary"/>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

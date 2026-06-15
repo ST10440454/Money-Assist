@@ -18,6 +18,7 @@
             android:id="@+id/etBillName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:inputType="textCapSentences"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -32,6 +33,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etBillAmount"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -47,6 +49,7 @@
             android:id="@+id/etBillDue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:focusable="false"
             android:clickable="true"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -61,6 +64,7 @@
             android:id="@+id/etBillRecurring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="Monthly"
             android:inputType="textCapSentences"/>
     </com.google.android.material.textfield.TextInputLayout>

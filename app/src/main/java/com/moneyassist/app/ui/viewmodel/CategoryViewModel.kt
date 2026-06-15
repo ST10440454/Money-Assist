@@ -15,7 +15,7 @@ class CategoryViewModel(app: Application) : AndroidViewModel(app) {
     private val repo = AppRepository(app)
 
     // Observable list of all categories
-    val categories = repo.getAllCategories()
+    val categories = repo.allCategories
 
     /** Adds a new category with optional spending goals. */
     fun addCategory(name: String, minGoal: Double, maxGoal: Double) {

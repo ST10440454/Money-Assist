@@ -14,16 +14,15 @@ import java.time.format.DateTimeFormatter
  */
 class BillsViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val repo = AppRepository(app)
+    // BUG FIX: was `AppRepository(app)` which creates a second repository instance,
+    // breaking the single-source-of-truth and causing LiveData observers on the Home
+    // screen to not see writes made through this ViewModel.
+    private val repo = AppRepository.getInstance(app)
 
-    // Observable data streams for the UI
-    val upcomingBills = repo.getUpcomingBills()
+    val upcomingBills = repo.getUpcomingBillsList()
     val paidBills = repo.getPaidBills()
-    val totalUpcoming = repo.getTotalUpcoming()
+    val totalUpcoming = repo.totalUpcoming
 
-    /**
-     * Marks a bill as paid and records the current date as the payment date.
-     */
     fun markPaid(bill: Bill) {
         val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         viewModelScope.launch {
@@ -31,16 +30,10 @@ class BillsViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /**
-     * Adds a new bill to the database.
-     */
     fun addBill(bill: Bill) {
         viewModelScope.launch { repo.insertBill(bill) }
     }
 
-    /**
-     * Deletes a bill from the database.
-     */
     fun deleteBill(bill: Bill) {
         viewModelScope.launch { repo.deleteBill(bill) }
     }

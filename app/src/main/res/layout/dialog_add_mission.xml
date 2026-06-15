@@ -1,89 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:padding="20dp">
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mission name (e.g. Emergency Fund)"
-        app:boxStrokeColor="@color/purple_primary"
-        android:layout_marginBottom="12dp">
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="Goal name" android:layout_marginBottom="10dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMissionName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapSentences"/>
+            android:id="@+id/et_mission_name"
+            android:textColor="@color/black"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Target amount (R)"
-        app:boxStrokeColor="@color/purple_primary"
-        android:layout_marginBottom="12dp">
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="Target amount (R)" android:layout_marginBottom="10dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMissionTarget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/et_mission_target"
+            android:textColor="@color/black"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Deadline (yyyy-MM-dd)"
-        app:boxStrokeColor="@color/purple_primary"
-        android:layout_marginBottom="16dp">
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="Current savings (R)" android:layout_marginBottom="10dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMissionDeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:clickable="true"/>
+            android:id="@+id/et_mission_current"
+            android:textColor="@color/black"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Type selection -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mission type"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_secondary"
-        android:layout_marginBottom="8dp"/>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="Deadline (yyyy-MM-dd)" android:layout_marginBottom="12dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_mission_deadline"
+            android:textColor="@color/black"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="date"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <RadioGroup
-        android:id="@+id/rgMissionType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <!-- Live formula preview -->
+    <TextView android:id="@+id/tv_mission_contrib_preview"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:padding="12dp" android:background="@color/green_light"
+        android:textColor="@color/green_dark" android:textStyle="bold"
+        android:text="Enter target and deadline to see contribution"
+        android:layout_marginBottom="14dp"/>
+
+    <!-- Budget mode -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Budget mode" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+
+    <RadioGroup android:id="@+id/rg_budget_mode"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rbSavings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="🎯 Savings"
-            android:textSize="14sp"
-            android:checked="true"
-            android:buttonTint="@color/purple_primary"/>
-
-        <RadioButton
-            android:id="@+id/rbDebt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="💳 Debt payoff"
-            android:textSize="14sp"
-            android:buttonTint="@color/purple_primary"/>
+        <RadioButton android:id="@+id/rb_flexible"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="🔓 Flexible" android:checked="true"
+            android:buttonTint="@color/green_primary"/>
+        <RadioButton android:id="@+id/rb_strict"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="🔒 Strict"
+            android:buttonTint="@color/green_primary"/>
     </RadioGroup>
-
 </LinearLayout>
+</ScrollView>

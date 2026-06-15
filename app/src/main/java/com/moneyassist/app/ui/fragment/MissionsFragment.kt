@@ -1,165 +1,190 @@
 package com.moneyassist.app.ui.fragment
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.TextView
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.moneyassist.app.R
 import com.moneyassist.app.data.entity.Mission
-import com.moneyassist.app.ui.adapter.BudgetAdapter
-import com.moneyassist.app.ui.adapter.MissionAdapter
 import com.moneyassist.app.ui.viewmodel.MissionsViewModel
-import java.util.*
 
 /**
- * Fragment for managing financial missions and budget limits.
- * Uses a tabbed layout to switch between Missions and Budget views.
+ * Screen 4 — Missions & Budgeting.
+ * Tab 1: Active missions with progress, monthly contribution, add-progress button.
+ * Tab 2: Completed missions.
+ * FAB → New Mission dialog with live formula preview.
  */
 class MissionsFragment : Fragment() {
 
-    private val vm: MissionsViewModel by activityViewModels()
-    private lateinit var missionAdapter: MissionAdapter
-    private lateinit var budgetAdapter: BudgetAdapter
+    private val vm: MissionsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_missions, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.fragment_missions, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val tabs      = view.findViewById<TabLayout>(R.id.tab_layout)
+        val rvActive  = view.findViewById<RecyclerView>(R.id.rv_active_missions)
+        val rvDone    = view.findViewById<RecyclerView>(R.id.rv_completed_missions)
+        val fab       = view.findViewById<FloatingActionButton>(R.id.fab_new_mission)
+        val tvEmpty   = view.findViewById<TextView>(R.id.tv_empty_missions)
 
-        val tvEmptyMissions = view.findViewById<TextView>(R.id.tvEmptyMissions)
-        val tvEmptyBudget   = view.findViewById<TextView>(R.id.tvEmptyBudget)
+        rvActive.layoutManager  = LinearLayoutManager(context)
+        rvDone.layoutManager    = LinearLayoutManager(context)
 
-        // Initialize adapters
-        missionAdapter = MissionAdapter(showContrib = true)
-        budgetAdapter  = BudgetAdapter()
+        val activeAdapter = MissionAdapter(mutableListOf(),
+            onAddProgress = { mission -> showAddProgressDialog(mission) },
+            onDelete = { vm.deleteMission(it) }
+        )
+        val doneAdapter = MissionAdapter(mutableListOf(),
+            onAddProgress = {}, onDelete = { vm.deleteMission(it) }, readOnly = true
+        )
 
-        // Setup RecyclerViews
-        view.findViewById<RecyclerView>(R.id.rvMissions).apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = missionAdapter
-        }
-        view.findViewById<RecyclerView>(R.id.rvBudget).apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = budgetAdapter
-        }
+        rvActive.adapter = activeAdapter
+        rvDone.adapter = doneAdapter
 
-        // Observe missions and budget categories from ViewModel
-        vm.missions.observe(viewLifecycleOwner) { list ->
-            missionAdapter.submitList(list)
-            tvEmptyMissions.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-        }
+        // ── Tabs ──────────────────────────────────────────────────
+        tabs.addTab(tabs.newTab().setText("Active"))
+        tabs.addTab(tabs.newTab().setText("Completed"))
 
-        vm.budgetCategories.observe(viewLifecycleOwner) { list ->
-            budgetAdapter.submitList(list)
-            tvEmptyBudget.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-        }
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                rvActive.visibility = if (tab.position == 0) View.VISIBLE else View.GONE
+                rvDone.visibility   = if (tab.position == 1) View.VISIBLE else View.GONE
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
 
-        // Tab switching logic
-        val btnMissions = view.findViewById<MaterialButton>(R.id.btnTabMissions)
-        val btnBudget   = view.findViewById<MaterialButton>(R.id.btnTabBudget)
-        val rvMissions  = view.findViewById<RecyclerView>(R.id.rvMissions)
-        val rvBudget    = view.findViewById<RecyclerView>(R.id.rvBudget)
-        val headerRow   = view.findViewById<View>(R.id.rowMissionsHeader)
-
-        /** Switches view to the Missions tab. */
-        fun selectMissionsTab() {
-            rvMissions.visibility          = View.VISIBLE
-            rvBudget.visibility            = View.GONE
-            tvEmptyMissions.visibility     = if (missionAdapter.itemCount == 0) View.VISIBLE else View.GONE
-            tvEmptyBudget.visibility       = View.GONE
-            headerRow.visibility           = View.VISIBLE
-            btnMissions.setBackgroundColor(requireContext().getColor(R.color.purple_primary))
-            btnMissions.setTextColor(requireContext().getColor(R.color.white))
-            btnBudget.setBackgroundColor(requireContext().getColor(android.R.color.transparent))
-            btnBudget.setTextColor(requireContext().getColor(R.color.text_secondary))
+        // ── Active missions ───────────────────────────────────────
+        vm.activeMissions.observe(viewLifecycleOwner) { missions ->
+            tvEmpty.visibility = if (missions.isNullOrEmpty()) View.VISIBLE else View.GONE
+            activeAdapter.updateData(missions ?: emptyList())
         }
 
-        /** Switches view to the Budget tab. */
-        fun selectBudgetTab() {
-            rvMissions.visibility          = View.GONE
-            rvBudget.visibility            = View.VISIBLE
-            tvEmptyMissions.visibility     = View.GONE
-            tvEmptyBudget.visibility       = if (budgetAdapter.itemCount == 0) View.VISIBLE else View.GONE
-            headerRow.visibility           = View.GONE
-            btnBudget.setBackgroundColor(requireContext().getColor(R.color.purple_primary))
-            btnBudget.setTextColor(requireContext().getColor(R.color.white))
-            btnMissions.setBackgroundColor(requireContext().getColor(android.R.color.transparent))
-            btnMissions.setTextColor(requireContext().getColor(R.color.text_secondary))
+        // ── Completed missions ────────────────────────────────────
+        vm.completedMissions.observe(viewLifecycleOwner) { missions ->
+            doneAdapter.updateData(missions ?: emptyList())
         }
 
-        btnMissions.setOnClickListener { selectMissionsTab() }
-        btnBudget.setOnClickListener   { selectBudgetTab() }
-
-        view.findViewById<View>(R.id.btnCloseTipMissions).setOnClickListener {
-            view.findViewById<View>(R.id.layoutTipMissions).visibility = View.GONE
+        // ── Result feedback ───────────────────────────────────────
+        vm.saveResult.observe(viewLifecycleOwner) { msg ->
+            msg?.let { Snackbar.make(view, it, Snackbar.LENGTH_LONG).show(); vm.clearResult() }
         }
 
-        view.findViewById<View>(R.id.btnNewMission).setOnClickListener {
-            showNewMissionDialog()
-        }
+        fab.setOnClickListener { showNewMissionDialog() }
     }
 
-    /**
-     * Displays a dialog to create a new financial mission.
-     */
+    // ── New Mission dialog with live contribution formula ─────────
     private fun showNewMissionDialog() {
-        val dialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.dialog_add_mission, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_mission, null)
+        val etName     = dialogView.findViewById<EditText>(R.id.et_mission_name)
+        val etTarget   = dialogView.findViewById<EditText>(R.id.et_mission_target)
+        val etCurrent  = dialogView.findViewById<EditText>(R.id.et_mission_current)
+        val etDeadline = dialogView.findViewById<EditText>(R.id.et_mission_deadline)
+        val tvContrib  = dialogView.findViewById<TextView>(R.id.tv_mission_contrib_preview)
+        val rgMode     = dialogView.findViewById<RadioGroup>(R.id.rg_budget_mode)
 
-        val etMissionDeadline = dialogView.findViewById<EditText>(R.id.etMissionDeadline)
-        etMissionDeadline.setOnClickListener {
-            val c = Calendar.getInstance()
-            DatePickerDialog(requireContext(), { _, y, m, d ->
-                etMissionDeadline.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", y, m + 1, d))
-            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show()
+        fun updatePreview() {
+            val target  = etTarget.text.toString().toDoubleOrNull() ?: return
+            val current = etCurrent.text.toString().toDoubleOrNull() ?: 0.0
+            val dl      = etDeadline.text.toString().trim()
+            tvContrib.text = "💡 " + vm.calcContribution(target, current, dl)
         }
 
-        android.app.AlertDialog.Builder(requireContext())
-            .setTitle("New Mission")
+        val watcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { updatePreview() }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        }
+        etTarget.addTextChangedListener(watcher)
+        etCurrent.addTextChangedListener(watcher)
+        etDeadline.addTextChangedListener(watcher)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("🎯 New Mission")
             .setView(dialogView)
             .setPositiveButton("Create") { _, _ ->
-                val name     = dialogView.findViewById<EditText>(R.id.etMissionName).text.toString().trim()
-                val target   = dialogView.findViewById<EditText>(R.id.etMissionTarget).text.toString().toDoubleOrNull()
-                val deadline = etMissionDeadline.text.toString().trim()
-                val isSavings = dialogView.findViewById<RadioButton>(R.id.rbSavings).isChecked
-
-                // Validate and create the mission
-                when {
-                    name.isEmpty()    -> Toast.makeText(requireContext(), "Enter a mission name", Toast.LENGTH_SHORT).show()
-                    target == null    -> Toast.makeText(requireContext(), "Enter a valid target amount", Toast.LENGTH_SHORT).show()
-                    deadline.isEmpty() -> Toast.makeText(requireContext(), "Enter a deadline (yyyy-MM-dd)", Toast.LENGTH_SHORT).show()
-                    else -> {
-                        val icon = if (isSavings) "🎯" else "💳"
-                        val type = if (isSavings) "savings" else "debt"
-                        vm.addMission(
-                            Mission(
-                                name          = name,
-                                target        = target,
-                                current       = 0.0,
-                                deadline      = deadline,
-                                type          = type,
-                                icon          = icon,
-                                monthlyContrib = 0.0
-                            )
-                        )
-                        Toast.makeText(requireContext(), "✅ Mission created!", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                val name    = etName.text.toString().trim()
+                val target  = etTarget.text.toString().toDoubleOrNull() ?: 0.0
+                val current = etCurrent.text.toString().toDoubleOrNull() ?: 0.0
+                val dl      = etDeadline.text.toString().trim()
+                val mode    = if (rgMode.checkedRadioButtonId == R.id.rb_strict) "strict" else "flexible"
+                vm.createMission(name, target, current, dl, mode)
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun showAddProgressDialog(mission: Mission) {
+        val et = EditText(requireContext()).apply {
+            hint = "Amount to add (R)"
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+        }
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Add progress to ${mission.name}")
+            .setView(et)
+            .setPositiveButton("Add") { _, _ ->
+                val amount = et.text.toString().toDoubleOrNull() ?: 0.0
+                if (amount > 0) vm.addProgress(mission, amount)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    // ── Adapter ───────────────────────────────────────────────────
+    inner class MissionAdapter(
+        private var items: List<Mission>,
+        private val onAddProgress: (Mission) -> Unit,
+        private val onDelete: (Mission) -> Unit,
+        private val readOnly: Boolean = false
+    ) : RecyclerView.Adapter<MissionAdapter.VH>() {
+
+        fun updateData(newItems: List<Mission>) {
+            this.items = newItems
+            notifyDataSetChanged()
+        }
+
+        inner class VH(v: View) : RecyclerView.ViewHolder(v) {
+            val tvName:    TextView    = v.findViewById(R.id.tv_mission_name)
+            val tvTarget:  TextView    = v.findViewById(R.id.tv_mission_target)
+            val tvContrib: TextView    = v.findViewById(R.id.tv_monthly_contrib)
+            val tvMode:    TextView    = v.findViewById(R.id.tv_budget_mode)
+            val progress:  ProgressBar = v.findViewById(R.id.progress_mission)
+            val tvPct:     TextView    = v.findViewById(R.id.tv_mission_pct)
+            val btnAdd:    Button      = v.findViewById(R.id.btn_add_progress)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            VH(LayoutInflater.from(parent.context).inflate(R.layout.item_mission, parent, false))
+
+        override fun getItemCount() = items.size
+
+        override fun onBindViewHolder(holder: VH, pos: Int) {
+            val m = items[pos]
+            val pct = if (m.targetAmount > 0) ((m.currentAmount / m.targetAmount) * 100).toInt().coerceAtMost(100) else 0
+            holder.tvName.text    = "${m.icon} ${m.name}"
+            holder.tvTarget.text  = "R${"%.2f".format(m.currentAmount)} / R${"%.2f".format(m.targetAmount)}"
+            holder.tvContrib.text = "R${"%.2f".format(m.monthlyContrib)}/mo recommended"
+            holder.tvMode.text    = if (m.budgetMode == "strict") "🔒 Strict" else "🔓 Flexible"
+            holder.progress.progress = pct
+            holder.tvPct.text     = "$pct%"
+            holder.btnAdd.visibility = if (readOnly) View.GONE else View.VISIBLE
+            holder.btnAdd.setOnClickListener { onAddProgress(m) }
+            holder.itemView.setOnLongClickListener {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Delete '${m.name}'?")
+                    .setPositiveButton("Delete") { _, _ -> onDelete(m) }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+                true
+            }
+        }
     }
 }
