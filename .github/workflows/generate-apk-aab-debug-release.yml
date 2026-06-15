@@ -6,6 +6,7 @@ env:
 
   # The name of the Play Store
   playstore_name: MoneyAssist
+  path: app/build/outputs/apk/debug/*.apk
 
 on:
 #Where release is writen , must match your branch name , I would suggest cloning your branch  at the end called release so it only builds the final code called release

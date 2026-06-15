@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_money_assist"
         android:label="Money Assist"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_money_assist"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyAssist">
 
