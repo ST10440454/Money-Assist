@@ -157,9 +157,8 @@ app/src/main/java/com/moneyassist/app/
 
 Database Schema
 
- Table | Description |
  
-users` | Registered user accounts 
+users | Registered user accounts 
 categories` | Spending categories with min/max budget goals 
 expense_entries` | Individual income and expense transactions 
 bills` | Recurring and one-off bills 
@@ -176,14 +175,3 @@ Security
 - Passwords are never stored in plain text. They are salted with a 16-byte cryptographically random salt and hashed with SHA-256 before being stored.
 - Session data (logged-in user ID, monthly income, streak info) is stored in EncryptedSharedPreferences backed by the Android Keystore using AES-256-GCM.
 - The `EncryptedSharedPreferences` instance is initialised once (singleton) to avoid performing Keystore I/O on the main thread.
-
----
-
-Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "Add your feature"`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
-
