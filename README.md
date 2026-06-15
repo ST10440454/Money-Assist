@@ -1,4 +1,4 @@
-Youtube Presentation: 
+Youtube Presentation: https://youtu.be/jlf9D2g74i8
 
 MoneyAssist
 
@@ -159,14 +159,14 @@ Database Schema
 
  
 users | Registered user accounts 
-categories` | Spending categories with min/max budget goals 
-expense_entries` | Individual income and expense transactions 
-bills` | Recurring and one-off bills 
-missions` | Savings goals with targets and deadlines 
-budget_categories` | Per-period budget allocations 
-hub_items` | Rewards shop items 
-transactions` | Imported/synced transaction records 
-points_ledger` | Full audit log of every Assist Points award and deduction 
+-categories | Spending categories with min/max budget goals 
+-expense_entries | Individual income and expense transactions 
+-bills | Recurring and one-off bills 
+-missions | Savings goals with targets and deadlines 
+-budget_categories | Per-period budget allocations 
+-hub_items | Rewards shop items 
+-transactions | Imported/synced transaction records 
+-points_ledger | Full audit log of every Assist Points award and deduction 
 
 ---
 
