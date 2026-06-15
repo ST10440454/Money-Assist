@@ -10,7 +10,7 @@ Features
 Authentication
 - Register and log in with email and password
 - Passwords are hashed with SHA-256 + a random salt — never stored in plain text
-- Sessions are persisted in EncryptedSharedPreferences (Android Keystore / AES-256-GCM)
+- Sessions are persisted in EncryptedSharedPreferences
 
 Onboarding
 - First-run wizard walks new users through:
@@ -56,14 +56,14 @@ Missions (Savings Goals)
 - Points awarded at 50% and 100% completion milestones
 
 Assist Points (Gamification)
- Action | Points 
- Daily manual transaction log | +10 |
- Daily streak maintenance | +5 |
- Mission reaches 50% | +50 |
- Mission completed | +100 |
- Approve an imported transaction | +5 |
- Strict-mode budget overspend | −pts |
- Hub shop purchase | −pts |
+ - Action | Points 
+ - Daily manual transaction log | +10 |
+ - Daily streak maintenance | +5 |
+ - Mission reaches 50% | +50 |
+ - Mission completed | +100 |
+ - Approve an imported transaction | +5 |
+ - Strict-mode budget overspend | −pts |
+ - Hub shop purchase | −pts |
 
 Points are stored in a ledger table so the full history is auditable.
 
@@ -158,14 +158,14 @@ app/src/main/java/com/moneyassist/app/
 Database Schema
  
 users | Registered user accounts 
--categories | Spending categories with min/max budget goals 
--expense_entries | Individual income and expense transactions 
--bills | Recurring and one-off bills 
--missions | Savings goals with targets and deadlines 
--budget_categories | Per-period budget allocations 
--hub_items | Rewards shop items 
--transactions | Imported/synced transaction records 
--points_ledger | Full audit log of every Assist Points award and deduction 
+- categories | Spending categories with min/max budget goals 
+- expense_entries | Individual income and expense transactions 
+- bills | Recurring and one-off bills 
+- missions | Savings goals with targets and deadlines 
+- budget_categories | Per-period budget allocations 
+- hub_items | Rewards shop items 
+- transactions | Imported/synced transaction records 
+- points_ledger | Full audit log of every Assist Points award and deduction 
 
 ---
 
