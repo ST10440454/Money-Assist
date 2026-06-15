@@ -84,7 +84,7 @@ Settings
 
 Architecture
 
-MoneyAssist follows the Model-View-ViewModel with a single-activity shell and Jetpack Navigation.
+MoneyAssist follows the Model-View-ViewModel.
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -156,7 +156,6 @@ app/src/main/java/com/moneyassist/app/
 ```
 
 Database Schema
-
  
 users | Registered user accounts 
 -categories | Spending categories with min/max budget goals 
