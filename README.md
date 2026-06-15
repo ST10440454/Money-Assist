@@ -1,9 +1,9 @@
 Youtube Presentation: https://youtu.be/jlf9D2g74i8
 
 MoneyAssist
-<img width="319" height="319" alt="logo_money_assist" src="https://github.com/user-attachments/assets/42c1c23f-2db6-40e1-bde5-142c0f3a50d5" />
 
 A personal finance Android app built in Kotlin that helps users track expenses, manage bills, set savings missions, and stay within their budget goals — all with an offline-first approach and a gamified points system to keep them motivated.
+<img width="319" height="319" alt="logo_money_assist" src="https://github.com/user-attachments/assets/42c1c23f-2db6-40e1-bde5-142c0f3a50d5" />
 
 ---
 Features
