@@ -12,8 +12,6 @@ import java.time.LocalDate
 /**
  * Single source of truth for all data operations.
  * ViewModels talk to this layer; this talks to DAOs.
- *
- * Note: Use-case classes (Domain layer) can be added here as the app grows.
  */
 class AppRepository(context: Context) {
 
